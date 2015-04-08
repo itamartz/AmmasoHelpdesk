@@ -29,7 +29,9 @@ namespace HelpDesk.ViewModel
             AddDistinguishedNames = new RelayCommand<object>(AddDistinguishedNamesToObs, canAddDistinguishedNamesToObs);
             RemoveDistinguishedNames = new RelayCommand<object>(RemoveDistinguishedNamesToObs, canRemoveDistinguishedNamesToObs);
 
-            ActiveDirectoryCheckBox = new RelayCommand<object>(DoActiveDirectoryCheckBox, canActiveDirectoryCheckBox);
+            ActiveDirectoryComputers = new RelayCommand<object>(DoActiveDirectoryComputers, canActiveDirectoryComputers);
+            ActiveDirectoryUsers = new RelayCommand<object>(DoActiveDirectoryUsers, canActiveDirectoryUsers);
+            ActiveDirectoryPrinters = new RelayCommand<object>(DoActiveDirectoryPrinters, canActiveDirectoryPrinters);
         }
 
         #region AddDistinguishedNames
@@ -72,25 +74,105 @@ namespace HelpDesk.ViewModel
         }
         #endregion
 
-        public ICommand ActiveDirectoryCheckBox { get; set; }
-        private void DoActiveDirectoryCheckBox(object obj)
+        #region ICommands
+
+        #region ActiveDirectoryComputers
+        public ICommand ActiveDirectoryComputers { get; set; }
+        private void DoActiveDirectoryComputers(object obj)
         {
 
             CheckBox computerCheckBox = obj as CheckBox;
-
             ActiveDirectoryObjectPublish adop = new ActiveDirectoryObjectPublish();
-            adop.ActiveDirectoryObject = (ActiveDirectoryObject)Enum.Parse(typeof(ActiveDirectoryObject), computerCheckBox.Tag.ToString());
+            adop.ActiveDirectoryObject = ActiveDirectoryObject.Computers;
             adop.Ischeck = (bool)computerCheckBox.IsChecked;
 
             if (adop != null)
                 PublishMessage<ActiveDirectoryObjectPublish>(adop);
         }
-
-        private bool canActiveDirectoryCheckBox(object obj)
+        private bool canActiveDirectoryComputers(object obj)
         {
-            return true;
+            if (ObDistinguishedNames != null)
+            {
+                if (ObDistinguishedNames.Any(d => !string.IsNullOrEmpty(d.Computers)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+                return false;
         }
 
+        #endregion
+
+        #region ActiveDirectoryUsers
+        public ICommand ActiveDirectoryUsers { get; set; }
+        private void DoActiveDirectoryUsers(object obj)
+        {
+
+            CheckBox UserCheckBox = obj as CheckBox;
+            ActiveDirectoryUserPublish adop = new ActiveDirectoryUserPublish();
+            adop.Ischeck = (bool)UserCheckBox.IsChecked;
+
+            if (adop != null)
+                PublishMessage<ActiveDirectoryUserPublish>(adop);
+        }
+        private bool canActiveDirectoryUsers(object obj)
+        {
+            
+            if (ObDistinguishedNames != null)
+            {
+                if (ObDistinguishedNames.Any(d => !string.IsNullOrEmpty(d.Users)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+
+        #endregion
+
+        #region ActiveDirectoryPrinters
+        public ICommand ActiveDirectoryPrinters { get; set; }
+        private void DoActiveDirectoryPrinters(object obj)
+        {
+
+            CheckBox PrintersCheckBox = obj as CheckBox;
+            ActiveDirectoryObjectPublish adop = new ActiveDirectoryObjectPublish();
+            adop.ActiveDirectoryObject = ActiveDirectoryObject.Printers;
+            adop.Ischeck = (bool)PrintersCheckBox.IsChecked;
+
+            if (adop != null)
+                PublishMessage<ActiveDirectoryObjectPublish>(adop);
+        }
+        private bool canActiveDirectoryPrinters(object obj)
+        {
+            if (ObDistinguishedNames != null)
+            {
+                if (ObDistinguishedNames.Any(d => !string.IsNullOrEmpty(d.Printers)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+
+        #endregion
+
+        #endregion
         private async void Load()
         {
             List<DistinguishedNames> listDistinguishedNames = await xml.GetDistinguishedNames();
@@ -128,5 +210,5 @@ namespace HelpDesk.ViewModel
             //PublishMessage<ActiveDirectorySave>(new ActiveDirectorySave());
         }
     }
-  
+
 }

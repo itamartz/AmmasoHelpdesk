@@ -61,6 +61,11 @@ namespace HelpDesk.ViewModel
             MessageBus.Subscribe<ActiveDirectoryObjectPublish>(ActiveDirectoryObjectSelected);
             MessageBus.Subscribe<ActiveDirectorySave>(ActiveDirectorySaveEvent);
             MessageBus.Subscribe<DefaultProgram>(StartDefaultProgram);
+            MessageBus.Subscribe<UsersViewViewModelSave>(
+                (obj) =>
+                {
+
+                });
         }
         protected override void Unsubscribe()
         {
@@ -77,9 +82,6 @@ namespace HelpDesk.ViewModel
             {
                 case ActiveDirectoryObject.Computers:
                     SetActiveDirectoryObjectComputers(IsCheck);
-                    break;
-                case ActiveDirectoryObject.Users:
-                    SetActiveDirectoryObjectUsers(IsCheck);
                     break;
                 case ActiveDirectoryObject.Printers:
                     SetActiveDirectoryObjectPrinters(IsCheck);
@@ -112,10 +114,10 @@ namespace HelpDesk.ViewModel
             {
                 SetActiveDirectoryObjectComputers(Properties.Settings.Default.CheckComputers);
             });
-            Task TUsers = Task.Run(() =>
-            {
-                SetActiveDirectoryObjectUsers(Properties.Settings.Default.CheckUsers);
-            });
+            //Task TUsers = Task.Run(() =>
+            //{
+            //    SetActiveDirectoryObjectUsers(Properties.Settings.Default.CheckUsers);
+            //});
             Task TPrinters = Task.Run(() =>
             {
                 SetActiveDirectoryObjectPrinters(Properties.Settings.Default.CheckPrinters);
@@ -126,7 +128,7 @@ namespace HelpDesk.ViewModel
             //});
             GetAllRemoteSoftware();
 
-            Task x = await Task.WhenAny(TComputers, TUsers, TPrinters);
+            Task x = await Task.WhenAny(TComputers, TPrinters);
             Debug.WriteLine(x.Status);
             LoadComputerSyntax();
 
@@ -228,12 +230,13 @@ namespace HelpDesk.ViewModel
             Debug.WriteLine("End SetActiveDirectoryObjectComputers");
 
         }
+        
         private async void SetActiveDirectoryObjectUsers(bool IsCheck)
         {
             Debug.WriteLine("Start SetActiveDirectoryObjectUsers");
             if (IsCheck)
             {
-                TxtUsersNamesCount = null;
+                //TxtUsersNamesCount = null;
                 List<Principal> AllUsers = await _UserCommandsviewModel.GetAllUsersFromAD();
                 AllUsers = AllUsers.OrderBy(a => a.SamAccountName).ToList();
                 TxtUsersNames = new ObservableCollection<Principal>(AllUsers);
@@ -245,10 +248,12 @@ namespace HelpDesk.ViewModel
                     TxtUsersNames.Clear();
                 }
             }
-            if (TxtUsersNames != null)
-                TxtUsersNamesCount = TxtUsersNames.Count.ToString();
+            if (TxtUsersNames != null) { }
+            //TxtUsersNamesCount = TxtUsersNames.Count.ToString();
             else
-                TxtUsersNamesCount = "0";
+            {
+            }
+            //TxtUsersNamesCount = "0";
             Debug.WriteLine("End SetActiveDirectoryObjectUsers");
 
         }
@@ -296,40 +301,14 @@ namespace HelpDesk.ViewModel
 
 
         }
-        string txtUsersNamesCount;
-        public string TxtUsersNamesCount
-        {
-            get { return txtUsersNamesCount; }
-            set { txtUsersNamesCount = value; OnPropertyChanged(); }
-        }
-        UserPrincipal selectedItemUser;
-        public UserPrincipal SelectedItemUser
-        {
-            get { return selectedItemUser; }
-            set
-            {
-                selectedItemUser = value;
-                try
-                {
-                    IsAccountLockedOut = selectedItemUser.IsAccountLockedOut();
-                }
-                finally
-                {
-                    OnPropertyChanged("IsAccountLockedOut");
-                }
-            }
-        }
-        bool isAccountLockedOut;
-        public bool IsAccountLockedOut
-        {
-            get { return isAccountLockedOut; }
-            set
-            {
-                isAccountLockedOut = value;
-                Debug.WriteLine(isAccountLockedOut);
-                OnPropertyChanged();
-            }
-        }
+
+        //string txtUsersNamesCount;
+        //public string TxtUsersNamesCount
+        //{
+        //    get { return txtUsersNamesCount; }
+        //    set { txtUsersNamesCount = value; OnPropertyChanged(); }
+        //}
+
 
         private int printerCount;
 
