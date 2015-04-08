@@ -65,7 +65,7 @@ namespace HelpDesk
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show(ex.Message, "Load Software from xml");
+                    System.Windows.Forms.MessageBox.Show(ex.StackTrace, "GetXMLButtons Load Software from xml: " + xmlPathlocation);
                     #region Old Software
                     //  listbuttons.Add(
                     //      new RemoteSoftware()
@@ -211,7 +211,7 @@ namespace HelpDesk
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show(ex.Message, "Load Software from xml");
+                    System.Windows.Forms.MessageBox.Show(ex.Message + "  " + UsersRemoteSoftwares, "GetUsersRemoteSoftwares Load Software from xml: ");
                 }
 
                 if (xml != null)

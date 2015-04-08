@@ -130,24 +130,22 @@
                           Margin="5"
                           Name="CheckComputers"
                           Tag="1"
-                          Checked="StackPanel_Checked"
-                          Unchecked="StackPanel_Checked"
+                          
                           IsChecked="{my:SettingBinding CheckComputers}" />
                 <CheckBox Content="Users"
                           Margin="5"
                           Name="CheckUsers"
                           Tag="2"
-                          Checked="StackPanel_Checked"
-                          Unchecked="StackPanel_Checked"
+                          
                           IsChecked="{my:SettingBinding CheckUsers}" />
                 <CheckBox Content="Printers"
                           Margin="5"
                           Name="CheckPrinters"
                           Tag="3"
-                          Checked="StackPanel_Checked"
-                          Unchecked="StackPanel_Checked"
+                          
                           IsChecked="{my:SettingBinding CheckPrinters}" />
-
+                             <!--Checked="StackPanel_Checked"
+                          Unchecked="StackPanel_Checked"-->
 
             </StackPanel>
         </Grid>

@@ -169,6 +169,9 @@
     <Compile Include="UserControls\ActiveDirectory2.xaml.cs">
       <DependentUpon>ActiveDirectory2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainWindowUser.xaml.cs">
+      <DependentUpon>MainWindowUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Remote.xaml.cs">
       <DependentUpon>Remote.xaml</DependentUpon>
     </Compile>
@@ -182,6 +185,7 @@
     <Compile Include="ViewModel\ActiveDirectoryViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DistinguishedNames.cs" />
+    <Compile Include="ViewModel\MainWindowUserViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\UsersViewViewModel.cs" />
@@ -203,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ActiveDirectory2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindowUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

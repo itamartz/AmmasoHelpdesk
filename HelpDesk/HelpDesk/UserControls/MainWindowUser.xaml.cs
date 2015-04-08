@@ -1,5 +1,4 @@
-﻿using HelpDesk.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,19 +16,13 @@ using System.Windows.Shapes;
 namespace HelpDesk.UserControls
 {
     /// <summary>
-    /// Interaction logic for UsersView.xaml
+    /// Interaction logic for MainWindowUser.xaml
     /// </summary>
-    public partial class UsersView : UserControl
+    public partial class MainWindowUser : UserControl
     {
-        public UsersView()
+        public MainWindowUser()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            UsersViewViewModel vm = (UsersViewViewModel)this.DataContext;
-            vm.Save();
         }
     }
 }

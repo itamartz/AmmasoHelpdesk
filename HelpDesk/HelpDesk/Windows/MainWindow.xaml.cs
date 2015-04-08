@@ -130,17 +130,17 @@ namespace HelpDesk
         #region UsersFunctions
         private void btn_UserDesktop_Click(object sender, RoutedEventArgs e)
         {
-            _UserCommandsviewModel.UserDesktop(GetPrefixComputerName(txt_Computer.Text), txt_UserName.Text);
+            //_UserCommandsviewModel.UserDesktop(GetPrefixComputerName(txt_Computer.Text), txt_UserName.Text);
         }
 
         private void btn_UserHomeDrive_Click(object sender, RoutedEventArgs e)
         {
-            _UserCommandsviewModel.UserHomeDrive(txt_UserName.Text);
+            //_UserCommandsviewModel.UserHomeDrive(txt_UserName.Text);
         }
 
         private void btn_UserUnLock_Click(object sender, RoutedEventArgs e)
         {
-            _UserCommandsviewModel.UserUnLock(txt_UserName.Text);
+            //_UserCommandsviewModel.UserUnLock(txt_UserName.Text);
         }
         #endregion
 

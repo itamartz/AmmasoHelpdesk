@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
 
 namespace HelpDesk.ViewModel
 {
@@ -14,7 +15,7 @@ namespace HelpDesk.ViewModel
         public string Computers
         {
             get { return computers; }
-            set { computers = value; OnPropertyChanged(); }
+            set { computers = value; OnPropertyChanged(); CommandManager.InvalidateRequerySuggested(); }
         }
 
         string users;
@@ -22,7 +23,7 @@ namespace HelpDesk.ViewModel
         public string Users
         {
             get { return users; }
-            set { users = value; OnPropertyChanged(); }
+            set { users = value; OnPropertyChanged(); CommandManager.InvalidateRequerySuggested(); }
         }
 
         string printers;
@@ -30,7 +31,7 @@ namespace HelpDesk.ViewModel
         public string Printers
         {
             get { return printers; }
-            set { printers = value; OnPropertyChanged(); }
+            set { printers = value; OnPropertyChanged(); CommandManager.InvalidateRequerySuggested(); }
         }
 
         private int index;
@@ -38,7 +39,7 @@ namespace HelpDesk.ViewModel
         public int Index
         {
             get { return index; }
-            set { index = value; OnPropertyChanged(); }
+            set { index = value; OnPropertyChanged(); CommandManager.InvalidateRequerySuggested(); }
         }
 
 

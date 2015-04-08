@@ -4,10 +4,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:ViewModel="clr-namespace:HelpDesk.ViewModel"
+             xmlns:local="clr-namespace:HelpDesk.UserControls"
              x:Class="HelpDesk.UserControls.UsersView"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="900">
+             d:DesignWidth="900"
+             Unloaded="UserControl_Unloaded">
     <UserControl.DataContext>
         <ViewModel:UsersViewViewModel />
     </UserControl.DataContext>
@@ -30,16 +32,16 @@
                  dd:DragDrop.IsDropTarget="True">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="5"
-                          Width="592.317"
+                    <Grid Margin="5,5,0,5"
+                          Width="773.828"
                           Height="80.92">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="102" />
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto"
-                                              MinWidth="40.331" />
+                                              MinWidth="33" />
                             <ColumnDefinition Width="Auto"
-                                              MinWidth="35.986" />
+                                              MinWidth="68.828" />
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -82,40 +84,43 @@
                                 Content="..."
                                 Tag="{Binding}"
                                 CommandParameter="{Binding SelectedItem, ElementName=listBox}"
-                                Command="{Binding Brows}"
+                                Command="{Binding DataContext.Brows, ElementName=listBox}"
                                 RenderTransformOrigin="-0.553,0.386"
                                 HorizontalAlignment="Left"
-                                Width="22.29">
-                            <Button.DataContext>
-                                <ViewModel:UsersViewViewModel />
-                            </Button.DataContext>
-                        </Button>
-
+                                Width="22.29"
+                                Visibility="Collapsed" />
                         <!--Add Or Remove-->
                         <StackPanel Grid.Column="3"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Stretch"
                                     Height="28"
-                                    Margin="0,0,-1.039,0"
+                                    Margin="0"
                                     Grid.RowSpan="1"
                                     VerticalAlignment="Top"
-                                    Width="37.025"
+                                    Width="Auto"
                                     Orientation="Horizontal">
-                            <StackPanel.DataContext>
-                                <ViewModel:UsersViewViewModel />
-                            </StackPanel.DataContext>
+                            <Button x:Name="btBrows"
+                                    Content="..."
+                                    Margin="0,0,10,0"
+                                    ToolTip="Brows..."
+                                    Height="20"
+                                    Tag="{Binding}"
+                                    Command="{Binding DataContext.Brows, ElementName=listBox}"
+                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" />
                             <Button x:Name="btnAdd"
                                     Content="+"
-                                    Margin="0,5.02"
-                                    Height="17.96"
-                                    Command="{Binding Add}"
-                                    CommandParameter="{Binding SelectedItem, ElementName=listBox}" />
-                            <Button x:Name="btnRemove"
+                                    Margin="0,0,5,0"
+                                    Height="20"
+                                    Tag="{Binding}"
+                                    Command="{Binding DataContext.Add, ElementName=listBox}"
+                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Top" />
+                            <Button x:Name="btnDelete"
                                     Content="-"
-                                    Margin="5,5.02,23.667,5.02"
-                                    Height="17.96"
-                                    Width="14.8"
-                                    Command="{Binding Delete}"
-                                    CommandParameter="{Binding SelectedItem, ElementName=listBox}" />
+                                    Margin="0"
+                                    Height="20"
+                                    Tag="{Binding}"
+                                    Command="{Binding DataContext.Delete, ElementName=listBox}"
+                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" />
+
                         </StackPanel>
 
                         <!--Bottun Name-->

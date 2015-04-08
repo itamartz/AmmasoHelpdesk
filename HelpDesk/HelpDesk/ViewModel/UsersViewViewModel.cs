@@ -7,22 +7,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HelpDesk.Commands;
+using System.Windows.Threading;
+using System.Windows.Controls;
+using System.Diagnostics;
 
 namespace HelpDesk.ViewModel
 {
     public class UsersViewViewModel : BaseViewModel
     {
         XMLApi xml = new XMLApi();
-        private ObservableCollection<RemoteSoftware> obRemoteSoftware;
+
+        private MTObservableCollection<RemoteSoftware> obRemoteSoftware;
+
+        List<RemoteSoftware> listRemoteSoftware;
+
         public UsersViewViewModel()
         {
+            obRemoteSoftware = new MTObservableCollection<RemoteSoftware>();
+            UsersRemoteSoftware = new MTObservableCollection<RemoteSoftware>();
             Brows = new RelayCommand<object>(DoBrows, CanBrows);
             Delete = new RelayCommand<object>(DoDelete, CanDelete);
+            Add = new RelayCommand<object>(DoAdd, CanAdd);
+
+            MessageBus = DependencyInjection.SimpleContainer.Get<ImessageBus>();
 
             Load();
         }
 
-
+        void timer_Tick(object sender, EventArgs e)
+        {
+            UsersRemoteSoftware.Add(new RemoteSoftware());
+        }
 
         #region BaseViewModel Subscribe / Unsubscribe
         protected override void Subscribe()
@@ -35,10 +50,12 @@ namespace HelpDesk.ViewModel
 
         private async void Load()
         {
-            //List<RemoteSoftware> listRemoteSoftware = new List<RemoteSoftware>();
-            //listRemoteSoftware.Add(new RemoteSoftware() { Name = "Default Name" });
-            List<RemoteSoftware> listRemoteSoftware = await xml.GetUsersRemoteSoftwares();
-            UsersRemoteSoftware = new ObservableCollection<RemoteSoftware>(listRemoteSoftware);
+            listRemoteSoftware = await xml.GetUsersRemoteSoftwares();
+            foreach (RemoteSoftware item in listRemoteSoftware)
+            {
+                UsersRemoteSoftware.Add(item);
+            }
+
         }
 
 
@@ -56,37 +73,15 @@ namespace HelpDesk.ViewModel
             if (obj != null)
             {
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-                RemoteSoftware re = (obj as RemoteSoftware);
+                Button b = obj as Button;
+                RemoteSoftware re = (b.Tag as RemoteSoftware);
                 dlg.Title = string.Format("Brows for {0} exe", re.Name);
                 Nullable<bool> result = dlg.ShowDialog();
-                // Get the selected file name and display in a TextBox
                 if (result == true)
                 {
-                    //TextBox te = FindVisualChildren<TextBox>(this).Where(t => t.Text == re.ProgramPath).FirstOrDefault();
-                    //te.Text = dlg.FileName;
                     re.ProgramPath = dlg.FileName;
                 }
             }
-
-            
-
-           
-
-            //BtnRemove
-            //if (obj != null)
-            //{
-
-            //    System.Windows.Controls.Button b = (obj as System.Windows.Controls.Button);
-            //    if (obRemoteSoftware.Count - 1 != 0)
-            //    {
-            //        //int index = Convert.ToInt32(b.Tag);
-            //        RemoteSoftware sof = (b.Tag as RemoteSoftware);
-            //        //RemoteSoftware sof = obRemoteSoftware[index];
-            //        sof.Isremove = true;
-            //        obRemoteSoftware.Remove(sof);
-
-            //    }
-            //}
         }
         #endregion
 
@@ -98,11 +93,7 @@ namespace HelpDesk.ViewModel
         }
         private void DoAdd(object obj)
         {
-            obRemoteSoftware.Add(new RemoteSoftware()
-            {
-                Name = "Default Name" + obRemoteSoftware.Count,
-                Index = obRemoteSoftware.Count
-            });
+            UsersRemoteSoftware.Add(new RemoteSoftware() { Name = "Default name " + (UsersRemoteSoftware.Count + 1) });
         }
         #endregion
 
@@ -110,7 +101,7 @@ namespace HelpDesk.ViewModel
         public ICommand Delete { get; set; }
         private bool CanDelete(object obj)
         {
-            return obRemoteSoftware.Count - 1 != 0;
+            return (obRemoteSoftware.Count - 1 != 0);
         }
 
         private void DoDelete(object obj)
@@ -118,12 +109,10 @@ namespace HelpDesk.ViewModel
             if (obj != null)
             {
 
-                System.Windows.Controls.Button b = (obj as System.Windows.Controls.Button);
+                Button b = (obj as System.Windows.Controls.Button);
                 if (obRemoteSoftware.Count - 1 != 0)
                 {
-                    //int index = Convert.ToInt32(b.Tag);
                     RemoteSoftware sof = (b.Tag as RemoteSoftware);
-                    //RemoteSoftware sof = obRemoteSoftware[index];
                     sof.Isremove = true;
                     obRemoteSoftware.Remove(sof);
 
@@ -133,7 +122,8 @@ namespace HelpDesk.ViewModel
         #endregion
 
         #endregion
-        public ObservableCollection<RemoteSoftware> UsersRemoteSoftware
+
+        public MTObservableCollection<RemoteSoftware> UsersRemoteSoftware
         {
             get { return obRemoteSoftware; }
             set
@@ -142,6 +132,10 @@ namespace HelpDesk.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        public void Save()
+        {
+            xml.SaveUsersRemoteSoftware(obRemoteSoftware);
+            MessageBus.Publish<UsersViewViewModelSave>(new UsersViewViewModelSave());
+        }
     }
 }

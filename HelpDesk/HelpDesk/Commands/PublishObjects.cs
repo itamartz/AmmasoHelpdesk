@@ -16,12 +16,15 @@ namespace HelpDesk.Commands
         public ActiveDirectoryObject ActiveDirectoryObject { get; set; }
         public bool Ischeck { get; set; }
     }
+    public class ActiveDirectoryUserPublish
+    {
+        public bool Ischeck { get; set; }
+    }
 
     public enum ActiveDirectoryObject
     {
         Computers = 1, Users = 2, Printers = 3
     }
-
     public class ComputerRestart
     {
         public string ComputerName { get; set; }
@@ -31,4 +34,5 @@ namespace HelpDesk.Commands
         public string ComputerName { get; set; }
     }
     public class ActiveDirectorySave { }
+    public class UsersViewViewModelSave { }
 }

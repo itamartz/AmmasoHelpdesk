@@ -33,5 +33,9 @@ namespace HelpDesk.Commands
                 }
             }
         }
+        public MTObservableCollection()
+        {
+
+        }
     }
 }
