@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RemoteSoftwares>
+  <Software>
+    <ProgramPath>C:\Windows\System32\msra.exe</ProgramPath>
+    <Options>/offerRA {computerName}</Options>
+    <Default></Default>
+    <Name>Remote Assist</Name>
+  </Software>
+ <Software>
+    <ProgramPath>C:\Program Files\SolarWinds\DameWare Mini Remote Control 10.0\DWRCC.exe</ProgramPath>
+    <Options>-c: -h: -m:{computerName} -vnc -a:1</Options>
+    <Default></Default>
+    <Name>VNC</Name>
+  </Software>
+ <Software>
+    <ProgramPath>C:\Program Files\SolarWinds\DameWare Remote Support 11.0\DWRCC.exe</ProgramPath>
+    <Options>-c: -h: -m:{computerName} -a:1</Options>
+    <Default>true</Default>
+    <Name>DameWare</Name>
+  </Software>
+ <Software>
+    <ProgramPath>C:\Program Files\TeamViewer\Version9\TeamViewer.exe</ProgramPath>
+    <Options>-i {computerName}</Options>
+    <Default></Default>
+    <Name>TeamViewer</Name>
+  </Software>
+</RemoteSoftwares>
