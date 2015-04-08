@@ -1,0 +1,11 @@
+﻿<Window x:Class="HelpDesk.Windows.Window1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Window1" Height="300" Width="300" xmlns:vm="clr-namespace:HelpDesk">
+    
+    <Window.Resources>
+        <vm:SimpleViewModel x:Key="viewModel" />
+    </Window.Resources>
+    <Grid>
+        <CheckBox x:Name="ChkBenfit" Content="CheckBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="{Binding IsBenefitsCheckd}" />
+        <ComboBox HorizontalAlignment="Left" Margin="56,78,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" Name="MyComboBox" KeyDown="MyComboBox_KeyDown" />
+
+    </Grid>
+</Window>

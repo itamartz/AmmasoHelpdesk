@@ -1,0 +1,40 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModel="clr-namespace:HelpDesk.ViewModel"
+        x:Class="HelpDesk.Windows.Options"
+        Title="Options"
+        Height="500"
+        Width="900"
+        Icon="..\Images\Options.png"
+        WindowState="Maximized"
+        Name="OptionWindow"
+        Unloaded="OptionWindow_Unloaded">
+    <Window.DataContext>
+        <ViewModel:OptionsViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="131*" />
+            <ColumnDefinition Width="380*" />
+        </Grid.ColumnDefinitions>
+        <ContentControl Grid.Column="1"
+                        x:Name="ContentControlPanel" />
+        <TreeView FontSize="14">
+
+            <TreeViewItem Header="Computers"
+                          x:Name="RemoteTreeView"
+                          Selected="RemoteTreeView_Selected">
+                <TreeViewItem.DataContext>
+                    <ViewModel:OptionsViewModel />
+                </TreeViewItem.DataContext>
+            </TreeViewItem>
+            <TreeViewItem Header="Users"
+                          x:Name="Users"
+                          Selected="Users_Selected" />
+            <TreeViewItem Header="Active Directory"
+                          x:Name="ActiveDirectoryTree"
+                          Selected="ActiveDirectoryTree_Selected" />
+            
+        </TreeView>
+    </Grid>
+</Window>
