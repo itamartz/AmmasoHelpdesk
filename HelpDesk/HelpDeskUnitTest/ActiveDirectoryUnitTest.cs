@@ -80,4 +80,40 @@ namespace HelpDeskUnitTest
 
 
     }
+
+    [TestClass]
+    public class UserP
+    {
+        [TestMethod]
+        public void GetUserPrincipal()
+        {
+            UserPrincipal up = GetUserPrincipal(Environment.UserName);
+            DateTime date = (DateTime)up.LastPasswordSet;
+            if(date!=null)
+            {
+                Debug.WriteLine(date.Date);
+            }
+        }
+
+        public UserPrincipal GetUserPrincipal(string UserName)
+        {
+            UserPrincipal user = null;
+            try
+            {
+                PrincipalContext pc = GetPrincipalContext();
+                user = UserPrincipal.FindByIdentity(pc, UserName);
+            }
+            catch (Exception ex)
+            {
+                return user;
+            }
+            return user;
+        }
+        public static PrincipalContext GetPrincipalContext()
+        {
+            PrincipalContext pc = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, "310188147", "Carmel2$");
+            return pc;
+        }
+    }
+
 }

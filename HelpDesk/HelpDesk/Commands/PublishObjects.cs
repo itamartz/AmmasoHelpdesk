@@ -20,7 +20,6 @@ namespace HelpDesk.Commands
     {
         public bool Ischeck { get; set; }
     }
-
     public enum ActiveDirectoryObject
     {
         Computers = 1, Users = 2, Printers = 3
@@ -35,4 +34,9 @@ namespace HelpDesk.Commands
     }
     public class ActiveDirectorySave { }
     public class UsersViewViewModelSave { }
+    public class ComputerSelected
+    {
+        public string ComputerName { get; set; }
+    }
+    
 }

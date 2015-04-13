@@ -1,4 +1,5 @@
-﻿using HelpDesk.UserControls;
+﻿using HelpDesk.Commands;
+using HelpDesk.UserControls;
 using HelpDesk.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace HelpDesk
         public XMLApi()
         {
             Remote2.ConfigurationFileLocation += Remote2_ConfigurationFileLocation;
+
         }
 
         void Remote2_ConfigurationFileLocation(bool obj)
@@ -65,7 +67,8 @@ namespace HelpDesk
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show(ex.StackTrace, "GetXMLButtons Load Software from xml: " + xmlPathlocation);
+                    string str = xmlPathlocation + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine;
+                    System.Windows.Forms.MessageBox.Show(str, "GetXMLButtons");
                     #region Old Software
                     //  listbuttons.Add(
                     //      new RemoteSoftware()
@@ -128,7 +131,7 @@ namespace HelpDesk
             return listbuttons;
         }
 
-        internal async Task<List<ViewModel.DistinguishedNames>> GetDistinguishedNames()
+        public async Task<List<ViewModel.DistinguishedNames>> GetDistinguishedNames()
         {
             List<ViewModel.DistinguishedNames> list = new List<DistinguishedNames>();
             if (string.IsNullOrEmpty(App.XmlConfigurationFileLocation))

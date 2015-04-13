@@ -22,7 +22,7 @@ namespace HelpDesk.ViewModel
 
         public ActiveDirectoryViewModel()
         {
-            MessageBus = DependencyInjection.SimpleContainer.Get<ImessageBus>();
+            //MessageBus = DependencyInjection.SimpleContainer.Get<ImessageBus>();
 
             Load();
 

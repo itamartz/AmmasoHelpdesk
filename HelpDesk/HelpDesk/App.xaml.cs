@@ -19,7 +19,7 @@ namespace HelpDesk
         public static string XmlConfigurationFileLocation { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
-            MessageBus msg = new MessageBus();
+            MessageBus msg = (MessageBus)this.Resources["APPMessageBus"];
             DependencyInjection.SimpleContainer.MapInstance<ImessageBus>(msg);
 
 
@@ -32,7 +32,7 @@ namespace HelpDesk
            
 
             MainWindow main = new MainWindow();
-
+            
 
 
             try

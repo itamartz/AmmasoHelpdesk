@@ -40,7 +40,8 @@ namespace HelpDesk.ViewModel
         {
             computers = new MTObservableCollection<string>();
             AllComputersButtons = new ObservableCollection<Button>();
-            MessageBus = DependencyInjection.SimpleContainer.Get<ImessageBus>();
+            
+            //MessageBus = DependencyInjection.SimpleContainer.Get<ImessageBus>();
 
             _ComputerCommandsviewModel = new ComputerCommands();
             _UserCommandsviewModel = new UserCommands();
@@ -61,11 +62,7 @@ namespace HelpDesk.ViewModel
             MessageBus.Subscribe<ActiveDirectoryObjectPublish>(ActiveDirectoryObjectSelected);
             MessageBus.Subscribe<ActiveDirectorySave>(ActiveDirectorySaveEvent);
             MessageBus.Subscribe<DefaultProgram>(StartDefaultProgram);
-            MessageBus.Subscribe<UsersViewViewModelSave>(
-                (obj) =>
-                {
-
-                });
+            
         }
         protected override void Unsubscribe()
         {
@@ -170,7 +167,6 @@ namespace HelpDesk.ViewModel
             Button b = sender as Button;
             RemoteSoftware sof = b.Tag as RemoteSoftware;
             _ComputerCommandsviewModel.RunRemoteSoftware(sof, _selectedComputer);
-            //_ComputerCommandsviewModel.RunRemoteSoftware(sof, GetPrefixComputerName(txt_Computer.Text));
         }
 
         private void LoadComputerSyntax()
@@ -191,6 +187,7 @@ namespace HelpDesk.ViewModel
             {
                 _selectedComputer = value;
                 OnPropertyChanged();
+                MessageBus.Publish<ComputerSelected>(new ComputerSelected() { ComputerName = value });
             }
         }
 
@@ -301,14 +298,6 @@ namespace HelpDesk.ViewModel
 
 
         }
-
-        //string txtUsersNamesCount;
-        //public string TxtUsersNamesCount
-        //{
-        //    get { return txtUsersNamesCount; }
-        //    set { txtUsersNamesCount = value; OnPropertyChanged(); }
-        //}
-
 
         private int printerCount;
 
