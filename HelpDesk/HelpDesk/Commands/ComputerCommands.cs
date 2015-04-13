@@ -422,15 +422,7 @@ namespace HelpDesk
 
                 try
                 {
-                    //Process.Start(psi);
-                    Process proc = new Process();
-                    proc.StartInfo = psi;
-                    proc.Start();
-                    while (!proc.StandardError.EndOfStream)
-                    {
-                        System.Windows.Forms.MessageBox.Show(proc.StandardError.ReadLine(), "StandardError");
-                        // do something with line
-                    }
+                    Process.Start(psi);
                 }
                 catch (Exception ex)
                 {

@@ -27,6 +27,7 @@ namespace HelpDesk
             PrincipalContext pc = new PrincipalContext(ContextType.Domain, Properties.Settings.Default.txt_Domain, Properties.Settings.Default.txt_AdminUser, Utility.AdminPassword);
             return pc;
         }
+
         public static UserPrincipal GetUserPrincipal(string UserName)
         {
             UserPrincipal user = null;
@@ -42,6 +43,16 @@ namespace HelpDesk
             }
             return user;
         }
+        public static DateTime LastPasswordSet()
+        {
+            UserPrincipal up = GetUserPrincipal(Environment.UserName);
+            DateTime date = (DateTime)up.LastPasswordSet;
+            if (date != null)
+            {
+                return (date.Date);
+            }
+            return date;
+        }
         internal void UserUnLock(string UserName)
         {
             UserPrincipal user = GetUserPrincipal(UserName);
@@ -54,7 +65,7 @@ namespace HelpDesk
         public async Task<List<Principal>> GetAllUsersFromAD()
         {
 
-            string txt_UsersDistinguishedNameOU = Properties.Settings.Default.txt_UsersDistinguishedNameOU;
+            //string txt_UsersDistinguishedNameOU = Properties.Settings.Default.txt_UsersDistinguishedNameOU;
             List<DistinguishedNames> listDistinguishedNames = await xml.GetDistinguishedNames();
 
 
@@ -67,7 +78,7 @@ namespace HelpDesk
                 UserPrincipal up = new UserPrincipal(pc);
                 PrincipalSearcher ps = new PrincipalSearcher();
                 ps.QueryFilter = up;
-               
+
                 Task T = Task.Run(() =>
                 {
                     try
@@ -156,9 +167,22 @@ namespace HelpDesk
 
         }
 
-        
+        public void RunRemoteSoftware(UserControls.RemoteSoftware sof, string ComputerName)
+        {
+            string Options = sof.Options;
+            
 
-        private void StartProcess(string app, string args)
+            Options = Options.Replace("{computerName}", ComputerName);
+            if (Options.Contains("{userName}"))
+                Options = Options.Replace("{userName}", Properties.Settings.Default.txt_AdminUser);
+            if (Options.Contains("{password}"))
+                Options = Options.Replace("{password}", Utility.AdminPassword);
+            if (Options.Contains("{comboboxUserName}"))
+                Options = Options.Replace("{comboboxUserName}", "comboboxUserName");
+
+            StartProcess(sof.ProgramPath, Options);
+        }
+        public void StartProcess(string app, string args)
         {
             if (string.IsNullOrEmpty(app))
             {
@@ -181,7 +205,8 @@ namespace HelpDesk
                 };
                 try
                 {
-                    Process.Start(psi);
+                    Process p = Process.Start(psi);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -190,6 +215,5 @@ namespace HelpDesk
                 }
             }
         }
-
     }
 }

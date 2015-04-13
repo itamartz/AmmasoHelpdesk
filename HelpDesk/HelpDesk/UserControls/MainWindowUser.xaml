@@ -13,14 +13,14 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
-    
+
     <UserControl.Resources>
         <AmmasoConverts:BoolToVisibility x:Key="BoolToVisibility" />
         <AmmasoConverts:StringToEnable x:Key="StringToEnable" />
         <AmmasoConverts:NullOrEmptyToVisibility x:Key="NullOrEmptyToVisibility" />
     </UserControl.Resources>
     <UserControl.DataContext>
-        <ViewModel:MainWindowUserViewModel />
+        <ViewModel:MainWindowUserViewModel MessageBus="{StaticResource APPMessageBus}" />
     </UserControl.DataContext>
     <Grid>
         <StackPanel x:Name="StackPanelUsers"
@@ -74,6 +74,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Width="204"
+                        Visibility="Collapsed"
                         IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txt_UserName}">
                 <StackPanel>
                     <Button Grid.Row="1"
@@ -105,6 +106,20 @@
                     <TextBlock Name="printerCount" Width="50"></TextBlock>
                 </StackPanel>-->
             </StackPanel>
+            <ListBox Margin="10,0,0,0"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     ItemsSource="{Binding RemoteSoftwares}"
+                     IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txt_UserName}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"
+                                   IsItemsHost="True"
+                                   Height="200" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+            </ListBox>
             <Border Margin="10,10,0,0"
                     BorderBrush="Black"
                     CornerRadius="1"

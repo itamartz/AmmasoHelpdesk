@@ -2,9 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
-             Exit="Application_Exit">
+             Exit="Application_Exit"
+             xmlns:my="clr-namespace:HelpDesk.Commands">
+    
     <Application.Resources>
-
+        <my:MessageBus x:Key="APPMessageBus"
+                       Name="RootMessageBus" />
         <LinearGradientBrush x:Key="shutdown_restart"
                              EndPoint="0,1"
                              StartPoint="0,0">
