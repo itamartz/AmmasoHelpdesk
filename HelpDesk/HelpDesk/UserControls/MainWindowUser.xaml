@@ -164,6 +164,7 @@
 
                     <TextBlock Text="Is Account Locked Out:"
                                Grid.Row="3"
+                               IsEnabled="{Binding IsAccountLockedOut}"
                                Visibility="{Binding IsAccountLockedOut, Converter={StaticResource BoolToVisibility}}">
                     </TextBlock>
                     <TextBlock Text="{Binding IsAccountLockedOut}"

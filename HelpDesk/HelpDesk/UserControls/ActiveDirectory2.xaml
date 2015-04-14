@@ -14,7 +14,7 @@
              Loaded="UserControl_Loaded"
              Unloaded="UserControl_Unloaded">
     <UserControl.DataContext>
-        <ViewModel:ActiveDirectoryViewModel  MessageBus="{StaticResource APPMessageBus}"/>
+        <ViewModel:ActiveDirectoryViewModel  MessageBus="{StaticResource APPMessageBus}" />
     </UserControl.DataContext>
     <StackPanel LostFocus="StackPanel_LostFocus">
         <Grid Margin="5">
@@ -24,6 +24,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -87,17 +88,29 @@
                        Grid.Row="5"
                        Visibility="Visible"
                        Style="{StaticResource DesignerWhiteForegroundStyle}" />
-            <TextBox x:Name="txt_prefixComputerName"
+            <TextBox x:Name="txt_prefixPassword"
                      Margin="3"
                      Grid.Row="5"
                      Grid.Column="1"
                      Text="{my:SettingBinding txt_prefixPassword}"
                      Visibility="Visible" />
 
+            <TextBlock Text="User ComboBox Prefix"
+                       Margin="0,7,10,3"
+                       Grid.Row="7"
+                       Visibility="Visible"
+                       Style="{StaticResource DesignerWhiteForegroundStyle}"
+                       ToolTip="If you need the selected user from ComboBox Users" />
+            <TextBox x:Name="txt_UserComboBoxPrefix"
+                     Margin="3"
+                     Grid.Row="7"
+                     Grid.Column="1"
+                     Text="{}{comboboxUserName}"
+                     Visibility="Visible" />
 
             <ListBox ItemsSource="{Binding ObDistinguishedNames}"
                      x:Name="level1Lister"
-                     Grid.Row="7"
+                     Grid.Row="8"
                      Grid.ColumnSpan="2"
                      MinHeight="100"
                      dd:DragDrop.IsDragSource="True"
@@ -220,14 +233,14 @@
 
             <TextBlock Text="Sync with Active Directory"
                        Margin="0,7,10,3"
-                       Grid.Row="8"
+                       Grid.Row="9"
                        Visibility="Visible"
                        Style="{StaticResource DesignerWhiteForegroundStyle}" />
 
             <!--Checked="StackPanel_Checked"
                 Unchecked="StackPanel_Checked"-->
 
-            <StackPanel Grid.Row="8"
+            <StackPanel Grid.Row="9"
                         Grid.Column="1"
                         Orientation="Horizontal">
                 <CheckBox Content="Computers"

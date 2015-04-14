@@ -10,7 +10,14 @@ namespace HelpDesk.Commands
     public class DefaultProgram
     {
     }
+    public class RDPProgram
+    {
 
+    }
+    public class Refresh
+    {
+
+    }
     public class ActiveDirectoryObjectPublish
     {
         public ActiveDirectoryObject ActiveDirectoryObject { get; set; }

@@ -24,17 +24,24 @@ namespace HelpDesk.Commands
             if (_Subscribers.ContainsKey(typeof(TMessage)))
             {
                  var handlers = _Subscribers[typeof(TMessage)];
-                
-                 foreach (Action<TMessage> item in handlers)
+
+                 try
                  {
-                     if(item.Method.Name == handler.Method.Name)
+                     foreach (Action<TMessage> item in handlers)
                      {
-                         Debug.WriteLine("Alredy exist " + handler.Method.Name);
+                         if (item.Method.Name == handler.Method.Name)
+                         {
+                             Debug.WriteLine("Alredy exist " + handler.Method.Name);
+                         }
+                         else
+                         {
+                             handlers.Add(handler);
+                         }
                      }
-                     else
-                     {
-                         handlers.Add(handler);
-                     }
+                 }
+                 catch (Exception ex)
+                 {
+                     Debug.WriteLine(ex);
                  }
 
                

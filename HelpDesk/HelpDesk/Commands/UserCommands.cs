@@ -167,10 +167,10 @@ namespace HelpDesk
 
         }
 
-        public void RunRemoteSoftware(UserControls.RemoteSoftware sof, string ComputerName)
+        public void RunRemoteSoftware(UserControls.RemoteSoftware sof, string ComputerName, string comboboxUserName)
         {
             string Options = sof.Options;
-            
+
 
             Options = Options.Replace("{computerName}", ComputerName);
             if (Options.Contains("{userName}"))
@@ -178,7 +178,7 @@ namespace HelpDesk
             if (Options.Contains("{password}"))
                 Options = Options.Replace("{password}", Utility.AdminPassword);
             if (Options.Contains("{comboboxUserName}"))
-                Options = Options.Replace("{comboboxUserName}", "comboboxUserName");
+                Options = Options.Replace("{comboboxUserName}", comboboxUserName);
 
             StartProcess(sof.ProgramPath, Options);
         }
@@ -206,7 +206,7 @@ namespace HelpDesk
                 try
                 {
                     Process p = Process.Start(psi);
-                    
+
                 }
                 catch (Exception ex)
                 {
