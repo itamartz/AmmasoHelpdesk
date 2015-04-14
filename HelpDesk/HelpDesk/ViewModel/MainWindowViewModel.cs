@@ -27,7 +27,7 @@ namespace HelpDesk.ViewModel
         ObservableCollection<Button> AllComputersButtons;
 
         private ComputerCommands _ComputerCommandsviewModel;
-        private UserCommands _UserCommandsviewModel;
+        // private UserCommands _UserCommandsviewModel;
         private PrinterCommands _PrinterCommandsviewModel;
         private ObservableCollection<RemoteSoftware> listRemoteSoftware;
 
@@ -40,11 +40,11 @@ namespace HelpDesk.ViewModel
         {
             computers = new MTObservableCollection<string>();
             AllComputersButtons = new ObservableCollection<Button>();
-            
+
             //MessageBus = DependencyInjection.SimpleContainer.Get<ImessageBus>();
 
             _ComputerCommandsviewModel = new ComputerCommands();
-            _UserCommandsviewModel = new UserCommands();
+            //_UserCommandsviewModel = new UserCommands();
             _PrinterCommandsviewModel = new PrinterCommands();
 
             Restart = new RelayCommand<object>(DoRestart, CanRestart);
@@ -62,7 +62,15 @@ namespace HelpDesk.ViewModel
             MessageBus.Subscribe<ActiveDirectoryObjectPublish>(ActiveDirectoryObjectSelected);
             MessageBus.Subscribe<ActiveDirectorySave>(ActiveDirectorySaveEvent);
             MessageBus.Subscribe<DefaultProgram>(StartDefaultProgram);
-            
+            MessageBus.Subscribe<Refresh>((obj) =>
+            {
+                Load();
+            });
+            MessageBus.Subscribe<RDPProgram>((obj) =>
+            {
+                if (!string.IsNullOrEmpty(_selectedComputer))
+                    _ComputerCommandsviewModel.ComputerRDP(_selectedComputer);
+            });
         }
         protected override void Unsubscribe()
         {
@@ -111,18 +119,11 @@ namespace HelpDesk.ViewModel
             {
                 SetActiveDirectoryObjectComputers(Properties.Settings.Default.CheckComputers);
             });
-            //Task TUsers = Task.Run(() =>
-            //{
-            //    SetActiveDirectoryObjectUsers(Properties.Settings.Default.CheckUsers);
-            //});
             Task TPrinters = Task.Run(() =>
             {
                 SetActiveDirectoryObjectPrinters(Properties.Settings.Default.CheckPrinters);
             });
-            //Task TRemoteSoftware = Task.Run(() =>
-            //{
-            //    GetAllRemoteSoftware();
-            //});
+
             GetAllRemoteSoftware();
 
             Task x = await Task.WhenAny(TComputers, TPrinters);
@@ -225,33 +226,6 @@ namespace HelpDesk.ViewModel
 
             TxtComputerCount = Computers.Count.ToString();
             Debug.WriteLine("End SetActiveDirectoryObjectComputers");
-
-        }
-        
-        private async void SetActiveDirectoryObjectUsers(bool IsCheck)
-        {
-            Debug.WriteLine("Start SetActiveDirectoryObjectUsers");
-            if (IsCheck)
-            {
-                //TxtUsersNamesCount = null;
-                List<Principal> AllUsers = await _UserCommandsviewModel.GetAllUsersFromAD();
-                AllUsers = AllUsers.OrderBy(a => a.SamAccountName).ToList();
-                TxtUsersNames = new ObservableCollection<Principal>(AllUsers);
-            }
-            else
-            {
-                if (TxtUsersNames != null)
-                {
-                    TxtUsersNames.Clear();
-                }
-            }
-            if (TxtUsersNames != null) { }
-            //TxtUsersNamesCount = TxtUsersNames.Count.ToString();
-            else
-            {
-            }
-            //TxtUsersNamesCount = "0";
-            Debug.WriteLine("End SetActiveDirectoryObjectUsers");
 
         }
         private async void SetActiveDirectoryObjectPrinters(bool IsCheck)

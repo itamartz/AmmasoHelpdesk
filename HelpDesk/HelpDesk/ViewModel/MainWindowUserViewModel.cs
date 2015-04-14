@@ -107,7 +107,7 @@ namespace HelpDesk.ViewModel
         {
             Button b = sender as Button;
             RemoteSoftware sof = b.Tag as RemoteSoftware;
-            _userCommand.RunRemoteSoftware(sof, SelectedComputer);
+            _userCommand.RunRemoteSoftware(sof, SelectedComputer, SelectedItemUser.SamAccountName);
         }
         #endregion
 
@@ -128,6 +128,11 @@ namespace HelpDesk.ViewModel
                 {
                     SetRemoteSoftware();
                 });
+            MessageBus.Subscribe<Refresh>((obj) =>
+            {
+                SetActiveDirectoryObjectUsers(Properties.Settings.Default.CheckUsers);
+                SetRemoteSoftware();
+            });
         }
         protected override void Unsubscribe()
         {
@@ -178,13 +183,17 @@ namespace HelpDesk.ViewModel
             set
             {
                 selectedItemUser = value;
-                try
+                if (selectedItemUser != null)
                 {
-                    IsAccountLockedOut = selectedItemUser.IsAccountLockedOut();
-                }
-                finally
-                {
-                    OnPropertyChanged("IsAccountLockedOut");
+
+                    try
+                    {
+                        IsAccountLockedOut = selectedItemUser.IsAccountLockedOut();
+                    }
+                    finally
+                    {
+                        OnPropertyChanged("IsAccountLockedOut");
+                    }
                 }
             }
         }

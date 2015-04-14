@@ -89,28 +89,6 @@ namespace HelpDesk
         #endregion
         #endregion
 
-        private string GetPrefixComputerName(string computerName)
-        {
-
-            return computerName;
-            //if (string.IsNullOrEmpty(Properties.Settings.Default.txt_prefixComputerName))
-            //{
-            //    return computerName;
-            //}
-            //else
-            //{
-            //    if (computerName.ToLower().Contains(Properties.Settings.Default.txt_prefixComputerName))
-            //    {
-            //        return computerName;
-            //    }
-            //    else
-            //    {
-            //        string str = string.Format("{0}{1}", Properties.Settings.Default.txt_prefixComputerName, computerName);
-            //        return str;
-            //    }
-            //}
-        }
-
         #region StackPanelElse
         private void txtNetsend_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -122,25 +100,8 @@ namespace HelpDesk
         private void btnNetSend_Click(object sender, RoutedEventArgs e)
         {
             string msg = txtNetsend.Text;
-            _ComputerCommandsviewModel.NetSend(msg, GetPrefixComputerName(txt_Computer.Text));
+            _ComputerCommandsviewModel.NetSend(msg,txt_Computer.Text);
             txtNetsend.Text = string.Empty;
-        }
-        #endregion
-
-        #region UsersFunctions
-        private void btn_UserDesktop_Click(object sender, RoutedEventArgs e)
-        {
-            //_UserCommandsviewModel.UserDesktop(GetPrefixComputerName(txt_Computer.Text), txt_UserName.Text);
-        }
-
-        private void btn_UserHomeDrive_Click(object sender, RoutedEventArgs e)
-        {
-            //_UserCommandsviewModel.UserHomeDrive(txt_UserName.Text);
-        }
-
-        private void btn_UserUnLock_Click(object sender, RoutedEventArgs e)
-        {
-            //_UserCommandsviewModel.UserUnLock(txt_UserName.Text);
         }
         #endregion
 
@@ -190,9 +151,19 @@ namespace HelpDesk
             if (IsKeyDown(Key.D1) && IsKeyDown(Key.LeftCtrl))
             {
                 keys.Clear();
-               // _MainWindowViewModel.StartDefaultProgram();
                 MessageBus.Publish<DefaultProgram>(new DefaultProgram());
             }
+            if (IsKeyDown(Key.D2) && IsKeyDown(Key.LeftCtrl))
+            {
+                keys.Clear();
+                MessageBus.Publish<RDPProgram>(new RDPProgram());
+            }
+            if (IsKeyDown(Key.F5))
+            {
+                keys.Clear();
+                MessageBus.Publish<Refresh>(new Refresh());
+            }
+
 
             if (IsKeyDown(Key.D0) && IsKeyDown(Key.LeftCtrl))
             {
