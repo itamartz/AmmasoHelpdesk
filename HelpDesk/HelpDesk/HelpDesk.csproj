@@ -15,6 +15,10 @@
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>true</IsWebBootstrapper>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <PublishUrl>D:\PublishHelpdesk\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -26,22 +30,18 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://ammaso.biz/helpdesk/</InstallUrl>
-    <SupportUrl>http://ammaso.biz/helpdesk/support</SupportUrl>
-    <ErrorReportUrl>http://ammaso.biz/helpdesk/error</ErrorReportUrl>
+    <SupportUrl>http://ammasohelpdesk.codeplex.com/documentation</SupportUrl>
+    <ErrorReportUrl>http://ammasohelpdesk.codeplex.com/documentation</ErrorReportUrl>
     <ProductName>Helpdesk</ProductName>
-    <PublisherName>Ammaso</PublisherName>
+    <PublisherName>Ammaso.biz</PublisherName>
     <SuiteName>Ammaso.biz</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>40</ApplicationRevision>
+    <ApplicationRevision>41</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
