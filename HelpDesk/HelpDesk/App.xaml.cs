@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -17,11 +18,13 @@ namespace HelpDesk
     public partial class App : Application
     {
         public static string XmlConfigurationFileLocation { get; set; }
+        public static Process RunProcess { get; set; }
+        public static AdminCredentialsAndRemoteSoftware AdminCredentialsAndRemoteSoftware { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             MessageBus msg = (MessageBus)this.Resources["APPMessageBus"];
             DependencyInjection.SimpleContainer.MapInstance<ImessageBus>(msg);
-
+            AdminCredentialsAndRemoteSoftware = new Commands.AdminCredentialsAndRemoteSoftware();
 
 
             string[] args = e.Args;

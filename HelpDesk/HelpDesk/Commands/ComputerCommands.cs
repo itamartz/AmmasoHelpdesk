@@ -19,12 +19,16 @@ using System.Management;
 using System.Net.NetworkInformation;
 using System.DirectoryServices;
 using HelpDesk.ViewModel;
+using HelpDesk.UserControls;
+using HelpDesk.Commands;
 
 namespace HelpDesk
 {
     public class ComputerCommands
     {
         XMLApi xml = new XMLApi();
+
+
 
         #region ComputerCommands
         public static PrincipalContext GetPrincipalContext()
@@ -54,6 +58,25 @@ namespace HelpDesk
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
             process.Start();
+            App.RunProcess = process;
+
+            AdminCredentialsAndRemoteSoftware acr = App.AdminCredentialsAndRemoteSoftware;
+
+            acr.UserName = Properties.Settings.Default.txt_AdminUser;
+            acr.Password = Utility.AdminPassword;
+            acr.FileName = "mstsc";
+            acr.Domain = Properties.Settings.Default.txt_Domain;
+            acr.ComputerName = ComputerName;
+
+            
+
+        }
+        internal void ComputerCDrive(string ComputerName)
+        {
+            //C:\Windows\System32\PING.EXE
+            string proc = "explorer.exe";
+            string all = string.Format(@"\\{0}\c$", ComputerName);
+            StartProcess(proc, all);
 
         }
         internal void ComputerPing(string ComputerName)
@@ -374,8 +397,21 @@ namespace HelpDesk
                 Options = Options.Replace("{userName}", Properties.Settings.Default.txt_AdminUser);
             if (Options.Contains("{password}"))
                 Options = Options.Replace("{password}", Utility.AdminPassword);
-            StartProcess(sof.ProgramPath, Options);
 
+            Task.Run(() =>
+                {
+                    StartProcess(sof.ProgramPath, Options);
+                });
+
+            AdminCredentialsAndRemoteSoftware acr = App.AdminCredentialsAndRemoteSoftware;
+
+            acr.UserName = Properties.Settings.Default.txt_AdminUser;
+           // acr.SecureStringPassword = Utility.AdminPassword.ToSecure();
+            acr.Password = Utility.AdminPassword;
+            acr.Arguments = Options;
+            acr.FileName = sof.ProgramPath;
+            acr.Domain = Properties.Settings.Default.txt_Domain;
+            acr.ComputerName = ComputerName;
 
         }
         internal void NetSend(string msg, string ComputerName)
@@ -422,7 +458,7 @@ namespace HelpDesk
 
                 try
                 {
-                    Process.Start(psi);
+                    App.RunProcess = Process.Start(psi);
                 }
                 catch (Exception ex)
                 {
@@ -430,19 +466,6 @@ namespace HelpDesk
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

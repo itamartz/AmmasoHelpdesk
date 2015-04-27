@@ -20,14 +20,16 @@ namespace HelpDesk
             return Convert.ToBase64String(encryptedData);
         }
 
+        /// <summary>
+        /// Return SecureString object base string value
+        /// </summary>
+        /// <param name="encryptedData">Encrypted Data</param>
+        /// <returns>SecureString</returns>
         public static SecureString DecryptString(string encryptedData)
         {
             try
             {
-                byte[] decryptedData = System.Security.Cryptography.ProtectedData.Unprotect(
-                    Convert.FromBase64String(encryptedData),
-                    entropy,
-                    System.Security.Cryptography.DataProtectionScope.CurrentUser);
+                byte[] decryptedData = System.Security.Cryptography.ProtectedData.Unprotect(Convert.FromBase64String(encryptedData), entropy, System.Security.Cryptography.DataProtectionScope.CurrentUser);
                 return ToSecureString(System.Text.Encoding.Unicode.GetString(decryptedData));
             }
             catch
@@ -62,5 +64,24 @@ namespace HelpDesk
             return returnValue;
         }
 
+    }
+
+    public static class SecureItHelper
+    {
+        public static string ToSecureString(this string current)
+        {
+            //string str = SecureIt.EncryptString(SecureIt.ToSecureString(current));
+            
+            byte[] b1 = System.Text.Encoding.UTF8.GetBytes(current);
+            string str = System.Text.Encoding.Unicode.GetString(b1);
+            return str;
+        }
+
+        public static string DecryptSecureString(this string current)
+        {
+             //Encoding.ASCII.GetString()
+            string str = SecureIt.DecryptString(SecureIt.DecryptString(current));
+            return str;
+        }
     }
 }

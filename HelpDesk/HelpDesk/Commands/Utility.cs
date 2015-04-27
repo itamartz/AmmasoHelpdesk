@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,6 +67,12 @@ namespace HelpDesk
             }
             return domain;
         }
+
+        public static SecureString GetAdminPasswordSecureString()
+        {
+            return SecureIt.DecryptString(_AdminPassword);
+        }
+        
     }
 
 

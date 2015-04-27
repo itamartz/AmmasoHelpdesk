@@ -193,6 +193,15 @@ namespace HelpDesk
                 keys.Clear();
                 Process.Start(App.XmlConfigurationFileLocation);
             }
+
+            if (IsKeyDown(Key.OemTilde) && IsKeyDown(Key.LeftCtrl))
+            {
+                keys.Clear();
+                //MessageBus.Publish<PublishHubConnection>(new PublishHubConnection());
+                
+            }
+
+            
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
