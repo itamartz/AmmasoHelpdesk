@@ -10,10 +10,19 @@ namespace HelpDesk.Commands
     public class DefaultProgram
     {
     }
+    public class CDrive
+    {
+
+    }
     public class RDPProgram
     {
 
     }
+    public class PingProgram
+    {
+
+    }
+
     public class Refresh
     {
 
@@ -45,5 +54,8 @@ namespace HelpDesk.Commands
     {
         public string ComputerName { get; set; }
     }
+    public class PublishHubConnection { }
+
+
     
 }

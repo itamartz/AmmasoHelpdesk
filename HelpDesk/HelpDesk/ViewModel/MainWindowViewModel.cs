@@ -1,5 +1,6 @@
 ﻿using HelpDesk.Commands;
 using HelpDesk.UserControls;
+using Microsoft.Owin.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,10 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml;
 
+using Microsoft.AspNet.SignalR.Client;
+using System.Security;
+using System.Net;
+
 namespace HelpDesk.ViewModel
 {
     public class MainWindowViewModel : BaseViewModel
@@ -32,7 +37,11 @@ namespace HelpDesk.ViewModel
         private PrinterCommands _PrinterCommandsviewModel;
         private ObservableCollection<RemoteSoftware> listRemoteSoftware;
 
+        const string ServerURI = "http://*:8080";
 
+        public IDisposable SignalR { get; set; }
+        public HubConnection ConnectionHub { get; set; }
+        public IHubProxy HubProxy { get; set; }
 
         XMLApi xml = new XMLApi();
 
@@ -48,6 +57,10 @@ namespace HelpDesk.ViewModel
             //_UserCommandsviewModel = new UserCommands();
             _PrinterCommandsviewModel = new PrinterCommands();
 
+            RDPCommand = new RelayCommand<object>(DoRDPCommand, CanRDPCommand);
+            CDriveCommand = new RelayCommand<object>(DoCDriveCommand, CanCDriveCommand);
+            PingCommand = new RelayCommand<object>(DoPingCommand, CanPingCommand);
+
             Restart = new RelayCommand<object>(DoRestart, CanRestart);
             Shutdown = new RelayCommand<object>(DoShutdown, CanShutdown);
             ActiveDirectoryDSA = new RelayCommand<object>(DoActiveDirectory, CanActiveDirectory);
@@ -55,6 +68,9 @@ namespace HelpDesk.ViewModel
             OpenPort = new RelayCommand<object>(DoOpenPort, CanOpenPort);
 
             Load();
+
+            // StartSignalR();
+
         }
 
         #region Subscribe
@@ -72,7 +88,21 @@ namespace HelpDesk.ViewModel
                 if (!string.IsNullOrEmpty(_selectedComputer))
                     _ComputerCommandsviewModel.ComputerRDP(_selectedComputer);
             });
+            MessageBus.Subscribe<CDrive>((obj) =>
+            {
+                if (!string.IsNullOrEmpty(_selectedComputer))
+                    _ComputerCommandsviewModel.ComputerCDrive(_selectedComputer);
+            });
+            MessageBus.Subscribe<PingProgram>((obj) =>
+            {
+                if (!string.IsNullOrEmpty(_selectedComputer))
+                    _ComputerCommandsviewModel.ComputerPing(_selectedComputer);
+            });
+            MessageBus.Subscribe<PublishHubConnection>(HubConnectionSet);
+
         }
+
+
         protected override void Unsubscribe()
         {
             MessageBus.Unsubscribe<ActiveDirectoryObjectPublish>(ActiveDirectoryObjectSelected);
@@ -131,81 +161,97 @@ namespace HelpDesk.ViewModel
             Debug.WriteLine(x.Status);
             LoadComputerSyntax();
 
+
+
         }
 
-        private void InstallUpdateSyncWithInfo()
+        private void StartSignalR()
         {
-            UpdateCheckInfo info = null;
-
-            ApplicationDeployment ad1 = ApplicationDeployment.CurrentDeployment;
-            Debug.WriteLine(ad1);
-
-            #region ApplicationDeployment.IsNetworkDeployed
-            if (ApplicationDeployment.IsNetworkDeployed)
+            try
             {
-                ApplicationDeployment ad = ApplicationDeployment.CurrentDeployment;
+                SignalR = WebApp.Start<Startup>(ServerURI);
+                Debug.WriteLine("SignalR Is running");
+                SignalRRunning = "SignalR Is running: " + ServerURI;
+            }
+            catch (TargetInvocationException)
+            {
+                Debug.WriteLine("A server is already running at " + ServerURI);
+                //this.Dispatcher.Invoke(() => ButtonStart.IsEnabled = true);
+            }
+        }
 
+        private string signalR;
+
+        public string SignalRRunning
+        {
+            get { return signalR; }
+            set { signalR = value; OnPropertyChanged(); }
+        }
+
+        private async void HubConnectionSet(PublishHubConnection obj)
+        {
+            var querystringData = new Dictionary<string, string>();
+            querystringData.Add("version", "version 1.0");
+
+            ConnectionHub = new HubConnection("http://ILQHFAATC1DT703:8080", querystringData);
+            //Connection = new HubConnection(ServerURI);
+            //Connection.Closed += Connection_Closed;
+            HubProxy = ConnectionHub.CreateHubProxy("MyHub");
+            //Handle incoming event from server: use Invoke to write to console from SignalR's thread
+            HubProxy.On<string, string>("AddMessage",
+                (name, message) =>
+                {
+                    Debug.WriteLine(message);
+                });
+            try
+            {
+                await ConnectionHub.Start();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unable to connect to server: Start server before connecting clients. " + ex.Message);
+                //No connection: Don't enable Send button or show chat UI
+            }
+
+            //HubProxy.Invoke("Send", SelectedComputer, "itamartz");
+
+            if (App.RunProcess != null)
+            {
+
+                //Run On remote Server
+                //if (!App.AdminCredentialsAndRemoteSoftware.IsRunning)
+                //App.AdminCredentialsAndRemoteSoftware.IsRunning = true;
+
+                await HubProxy.Invoke("RunRemoteSoftware", App.AdminCredentialsAndRemoteSoftware);
+                Debug.WriteLine("Invoke RunRemoteSoftware");
                 try
                 {
-                    info = ad.CheckForDetailedUpdate();
-
+                    // close local RunProcess
+                    App.RunProcess.Kill();
+                    App.RunProcess = null;
                 }
-                catch (DeploymentDownloadException dde)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("The new version of the application cannot be downloaded at this time. \n\nPlease check your network connection, or try again later. Error: " + dde.Message);
-                    return;
-                }
-                catch (InvalidDeploymentException ide)
-                {
-                    MessageBox.Show("Cannot check for a new version of the application. The ClickOnce deployment is corrupt. Please redeploy the application and try again. Error: " + ide.Message);
-                    return;
-                }
-                catch (InvalidOperationException ioe)
-                {
-                    MessageBox.Show("This application cannot be updated. It is likely not a ClickOnce application. Error: " + ioe.Message);
-                    return;
-                }
-
-                if (info.UpdateAvailable)
-                {
-                    Boolean doUpdate = true;
-
-                    //if (!info.IsUpdateRequired)
-                    //{
-                    //    System.Windows.Forms.DialogResult dr = MessageBox.Show("An update is available. Would you like to update the application now?", "Update Available", MessageBoxButtons.OKCancel);
-                    //    if (!(DialogResult.OK == dr))
-                    //    {
-                    //        doUpdate = false;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    // Display a message that the app MUST reboot. Display the minimum required version.
-                    //    MessageBox.Show("This application has detected a mandatory update from your current " +
-                    //        "version to version " + info.MinimumRequiredVersion.ToString() +
-                    //        ". The application will now install the update and restart.",
-                    //        "Update Available", MessageBoxButtons.OK,
-                    //        MessageBoxIcon.Information);
-                    //}
-
-                    if (doUpdate)
-                    {
-                        try
-                        {
-                            ad.Update();
-                            MessageBox.Show("The application has been upgraded, and will now restart.");
-                            System.Windows.Forms.Application.Restart();
-                            System.Windows.Application.Current.Shutdown();
-                        }
-                        catch (DeploymentDownloadException dde)
-                        {
-                            MessageBox.Show("Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + dde);
-                            return;
-                        }
-                    }
+                    throw new NotImplementedException("close local RunProcess", ex);
                 }
             }
-            #endregion
+
+            //Close SignalR
+
+            try
+            {
+                ConnectionHub.Stop();
+                ConnectionHub.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("HubConnectionSet", ex);
+            }
+        }
+
+        private void Connection_Closed()
+        {
+            Debug.WriteLine("Connection Close");
         }
 
         /// <summary>
@@ -406,12 +452,55 @@ namespace HelpDesk.ViewModel
 
         #region ICommands
 
+        #region RDP
+        public ICommand RDPCommand { get; set; }
+
+        private bool CanRDPCommand(object obj)
+        {
+            return true;
+        }
+
+        private void DoRDPCommand(object obj)
+        {
+            MessageBus.Publish<RDPProgram>(new RDPProgram());
+        }
+        #endregion
+
+        #region C$
+        public ICommand CDriveCommand { get; set; }
+
+        private bool CanCDriveCommand(object obj)
+        {
+            return true;
+        }
+
+        private void DoCDriveCommand(object obj)
+        {
+            MessageBus.Publish<CDrive>(new CDrive());
+        }
+        #endregion
+
+        #region Ping
+        public ICommand PingCommand { get; set; }
+
+        private bool CanPingCommand(object obj)
+        {
+            return true;
+        }
+
+        private void DoPingCommand(object obj)
+        {
+            MessageBus.Publish<PingProgram>(new PingProgram());
+        }
+        #endregion
+
         #region Restart
+        public ICommand Restart { get; set; }
+
         private bool CanRestart(object obj)
         {
             return (obj != null);
         }
-        public ICommand Restart { get; set; }
 
         private void DoRestart(object obj)
         {
