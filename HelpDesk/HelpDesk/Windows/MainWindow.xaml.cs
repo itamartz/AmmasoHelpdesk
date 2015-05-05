@@ -26,13 +26,14 @@ using System.Xml;
 using System.Configuration;
 using HelpDesk.ViewModel;
 using HelpDesk.Commands;
+using MahApps.Metro.Controls;
 
 namespace HelpDesk
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow 
     {
         private ComputerCommands _ComputerCommandsviewModel;
         private UserCommands _UserCommandsviewModel;
@@ -47,9 +48,9 @@ namespace HelpDesk
             _UserCommandsviewModel = (UserCommands)this.Resources["UserCommandsviewModel"];
             _PrinterCommandsviewModel = (PrinterCommands)this.Resources["PrinterCommandsviewModel"];
             MessageBus = DependencyInjection.SimpleContainer.Get<ImessageBus>();
-           
+
         }
-        
+
         #region MenuItemFunctions
         private void MenuOption_Click(object sender, RoutedEventArgs e)
         {
@@ -93,15 +94,15 @@ namespace HelpDesk
         private void txtNetsend_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-            txtNetsend.Width = txtNetsend.Width == 150 ? 50 : 150;
-            txtNetsend.Height = txtNetsend.Height == 150 ? 28 : 150;
+            //txtNetsend.Width = txtNetsend.Width == 150 ? 50 : 150;
+            //txtNetsend.Height = txtNetsend.Height == 150 ? 28 : 150;
         }
 
         private void btnNetSend_Click(object sender, RoutedEventArgs e)
         {
-            string msg = txtNetsend.Text;
-            _ComputerCommandsviewModel.NetSend(msg,txt_Computer.Text);
-            txtNetsend.Text = string.Empty;
+            //string msg = txtNetsend.Text;
+            //_ComputerCommandsviewModel.NetSend(msg,txt_Computer.Text);
+            //txtNetsend.Text = string.Empty;
         }
         #endregion
 
@@ -142,7 +143,7 @@ namespace HelpDesk
         #region Keybord
 
         List<Key> keys = new List<Key>();
-      
+
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -198,10 +199,10 @@ namespace HelpDesk
             {
                 keys.Clear();
                 //MessageBus.Publish<PublishHubConnection>(new PublishHubConnection());
-                
+
             }
 
-            
+
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -226,5 +227,17 @@ namespace HelpDesk
                 keys.Remove(key);
         }
         #endregion
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            MessageBus.Publish<WindowActivated>(new WindowActivated() { Activated = true });
+            //MainWindow main = sender as MainWindow;
+            //FocusManager.SetFocusedElement(this, txt_Computer);
+        }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            MessageBus.Publish<WindowActivated>(new WindowActivated() { Activated = false });
+        }
     }
 }

@@ -88,7 +88,12 @@ namespace HelpDesk
             StartProcess(proc, all);
 
         }
+        internal void ComputerManage(string _selectedComputer)
+        {
+            string all = string.Format("compmgmt.msc /Computer={0}", _selectedComputer);
+            StartProcess(mmc, all);
 
+        }
         #region WOL
         internal async void ComputerWOL(string ComputerName)
         {
@@ -467,6 +472,8 @@ namespace HelpDesk
             }
         }
 
+
+        
     }
 
 

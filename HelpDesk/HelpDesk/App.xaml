@@ -4,41 +4,113 @@
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
              Exit="Application_Exit"
              xmlns:my="clr-namespace:HelpDesk.Commands">
-    
-    <Application.Resources>
-        <my:MessageBus x:Key="APPMessageBus"
-                       Name="RootMessageBus" />
-        <LinearGradientBrush x:Key="shutdown_restart"
-                             EndPoint="0,1"
-                             StartPoint="0,0">
-            <GradientStop Color="#FFF3F3F3"
-                          Offset="0" />
-            <GradientStop Color="#FFEBEBEB"
-                          Offset="0.5" />
-            <GradientStop Color="#FFDDDDDD"
-                          Offset="0.5" />
-            <GradientStop Color="#FFFB0404"
-                          Offset="1" />
-        </LinearGradientBrush>
 
-        <Style x:Key="DesignerWhiteForegroundStyle"
-               TargetType="TextBlock">
-            <Style.Triggers>
-                <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
-                         Value="True">
-                    <Setter Property="Foreground"
-                            Value="White" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="CheckBox">
-            <Style.Triggers>
-                <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
-                         Value="True">
-                    <Setter Property="Foreground"
-                            Value="White" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <my:MessageBus x:Key="APPMessageBus"
+                           Name="RootMessageBus" />
+            <LinearGradientBrush x:Key="shutdown_restart"
+                                 EndPoint="0,1"
+                                 StartPoint="0,0">
+                <GradientStop Color="#FFF3F3F3"
+                              Offset="0" />
+                <GradientStop Color="#FFEBEBEB"
+                              Offset="0.5" />
+                <GradientStop Color="#FFDDDDDD"
+                              Offset="0.5" />
+                <GradientStop Color="#FFFB0404"
+                              Offset="1" />
+            </LinearGradientBrush>
+
+            <Style x:Key="DesignerWhiteForegroundStyle"
+                   TargetType="TextBlock">
+                <Style.Triggers>
+                    <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
+                             Value="True">
+                        <Setter Property="Foreground"
+                                Value="White" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="CheckBox">
+                <Style.Triggers>
+                    <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
+                             Value="True">
+                        <Setter Property="Foreground"
+                                Value="White" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!--GridSplitter-->
+            <Style x:Key="GridSplitterPreviewStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Fill="#80000000" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="GridSplitterStyle1"
+                   TargetType="{x:Type GridSplitter}">
+                <Setter Property="Background"
+                        Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+                <Setter Property="PreviewStyle"
+                        Value="{StaticResource GridSplitterPreviewStyle}" />
+                <Setter Property="Height"
+                        Value="5" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridSplitter}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="5">
+                                <Canvas RenderOptions.EdgeMode="Aliased"
+                                        UseLayoutRounding="True"
+                                        Height="6"
+                                        VerticalAlignment="Center"
+                                        Width="50"
+                                        HorizontalAlignment="Center">
+                                    <Line X1="0"
+                                          X2="50"
+                                          Y1="0"
+                                          Y2="0"
+                                          Stroke="White"
+                                          StrokeThickness="1" />
+                                    <Line X1="0"
+                                          X2="50"
+                                          Y1="1"
+                                          Y2="1"
+                                          Stroke="#A0A0A0"
+                                          StrokeThickness="1" />
+                                    <Line X1="0"
+                                          X2="50"
+                                          Y1="4"
+                                          Y2="4"
+                                          Stroke="White"
+                                          StrokeThickness="1" />
+                                    <Line X1="0"
+                                          X2="50"
+                                          Y1="5"
+                                          Y2="5"
+                                          Stroke="#A0A0A0"
+                                          StrokeThickness="1" />
+                                </Canvas>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

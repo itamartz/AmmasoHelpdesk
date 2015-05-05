@@ -259,8 +259,12 @@ namespace HelpDesk
                                 new XElement("Name", emp.Name)
                             ));
 
+
+            //App.XmlConfigurationFileLocation
+            if (string.IsNullOrEmpty(xmlPathlocation))
+                xmlPathlocation = Path.Combine(App.XmlConfigurationFileLocation, "RemoteSoftwares.xml");
             xEle.Save(xmlPathlocation);
-            Debug.WriteLine("Converted to XML");
+            Debug.WriteLine("XMLAPI Save()");
 
         }
 
@@ -279,7 +283,7 @@ namespace HelpDesk
                             ));
 
             xEle.Save(UsersRemoteSoftwares);
-            Debug.WriteLine("Converted to XML");
+            Debug.WriteLine("XMLAPI SaveUsersRemoteSoftware()");
 
         }
 
@@ -298,7 +302,8 @@ namespace HelpDesk
                             ));
 
             xEle.Save(DistinguishedNamesPathLocation);
-            Debug.WriteLine("Converted to XML");
+            Debug.WriteLine("XMLAPI Save() obDistinguishedNames");
+
         }
 
     }
