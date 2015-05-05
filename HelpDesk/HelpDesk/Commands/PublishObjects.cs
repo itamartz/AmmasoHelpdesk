@@ -22,6 +22,13 @@ namespace HelpDesk.Commands
     {
 
     }
+    public class ManageProgram 
+    {
+    }
+    public class WindowActivated
+    {
+        public bool Activated { get; set; }
+    }
 
     public class Refresh
     {

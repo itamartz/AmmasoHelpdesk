@@ -1,0 +1,14 @@
+﻿<ViewModel:UsersViewViewModel xmlns:ViewModel="clr-namespace:HelpDesk.ViewModel" xmlns:UserControls="clr-namespace:HelpDesk.UserControls">
+	<ViewModel:UsersViewViewModel.UsersRemoteSoftware>
+		<UserControls:RemoteSoftware Column="70" Default="True" Index="20" Isremove="False" Name="Nam curae sed maecenas cras" Options="Adipiscing aenean parturient class" ProgramPath="Aliquam vestibulum"/>
+		<UserControls:RemoteSoftware Column="18" Default="True" Index="94" Isremove="False" Name="Accumsan donec bibendum" Options="Phasellus duis praesent" ProgramPath="Mauris curabitur"/>
+		<UserControls:RemoteSoftware Column="36" Default="True" Index="50" Isremove="False" Name="Eleifend consequat amet convallis vivamus" Options="Quisque dictumst" ProgramPath="Dis nunc vestibulum integer"/>
+		<UserControls:RemoteSoftware Column="24" Default="True" Index="73" Isremove="False" Name="Etiam aptent" Options="Vestibulum aliquam adipiscing" ProgramPath="Est nullam dignissim hac elementum"/>
+		<UserControls:RemoteSoftware Column="85" Default="True" Index="94" Isremove="False" Name="Parturient aliquet blandit" Options="Ante auctor fusce nec" ProgramPath="Leo mus facilisi"/>
+		<UserControls:RemoteSoftware Column="26" Default="True" Index="39" Isremove="False" Name="Congue cursus fermentum morbi dictum" Options="Non commodo" ProgramPath="Facilisis lorem arcu diam"/>
+		<UserControls:RemoteSoftware Column="62" Default="True" Index="38" Isremove="False" Name="Faucibus habitant per eget sed" Options="Conubia cubilia habitasse" ProgramPath="Fringilla lectus"/>
+		<UserControls:RemoteSoftware Column="63" Default="True" Index="35" Isremove="False" Name="Augue dapibus" Options="Sit vel proin libero elit" ProgramPath="Hendrerit sem nulla"/>
+		<UserControls:RemoteSoftware Column="97" Default="True" Index="17" Isremove="False" Name="Egestas nam eros euismod nibh" Options="Interdum himenaeos erat" ProgramPath="Vestibulum inceptos enim"/>
+		<UserControls:RemoteSoftware Column="33" Default="True" Index="25" Isremove="False" Name="Gravida iaculis lobortis fames parturient" Options="Feugiat nisl" ProgramPath="Nisi vestibulum adipiscing dolor"/>
+	</ViewModel:UsersViewViewModel.UsersRemoteSoftware>
+</ViewModel:UsersViewViewModel>

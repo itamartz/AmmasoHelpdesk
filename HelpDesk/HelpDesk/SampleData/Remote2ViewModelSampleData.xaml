@@ -1,0 +1,14 @@
+﻿<ViewModel:Remote2ViewModel xmlns:ViewModel="clr-namespace:HelpDesk.ViewModel" xmlns:UserControls="clr-namespace:HelpDesk.UserControls" XmlConfigurationFileLocation="Hac orci leo mus imperdiet">
+	<ViewModel:Remote2ViewModel.OBRemoteSoftwares>
+		<UserControls:RemoteSoftware Column="15" Default="True" Index="33" Isremove="False" Name="Sed aenean cras" Options="Dictumst pellentesque eleifend aliquet" ProgramPath="Vestibulum class nam"/>
+		<UserControls:RemoteSoftware Column="61" Default="True" Index="51" Isremove="False" Name="Praesent duis mauris nunc" Options="Arcu curabitur consectetuer facilisi" ProgramPath="Aliquam consequat curae dis"/>
+		<UserControls:RemoteSoftware Column="76" Default="True" Index="23" Isremove="False" Name="Arcu convallis dignissim hac diam" Options="Dis diam pellentesque est" ProgramPath="Adipiscing est amet"/>
+		<UserControls:RemoteSoftware Column="65" Default="True" Index="52" Isremove="False" Name="Congue accumsan" Options="Lorem nullam sollicitudin pellentesque" ProgramPath="Leo mus aptent nec non"/>
+		<UserControls:RemoteSoftware Column="89" Default="True" Index="85" Isremove="False" Name="Vivamus dictum" Options="Morbi consectetuer eget" ProgramPath="Eget quisque bibendum cursus"/>
+		<UserControls:RemoteSoftware Column="18" Default="True" Index="27" Isremove="False" Name="Aliquet fermentum adipiscing erat parturient" Options="Nulla blandit proin commodo" ProgramPath="Elementum dictumst facilisis vestibulum"/>
+		<UserControls:RemoteSoftware Column="21" Default="True" Index="70" Isremove="False" Name="Facilisi lectus faucibus" Options="Hac faucibus augue elit" ProgramPath="Blandit eros commodo sem"/>
+		<UserControls:RemoteSoftware Column="74" Default="True" Index="16" Isremove="False" Name="Dapibus habitasse ligula hendrerit lorem" Options="Enim leo mus conubia" ProgramPath="Conubia fringilla sit cubilia"/>
+		<UserControls:RemoteSoftware Column="86" Default="True" Index="34" Isremove="False" Name="Litora nam egestas" Options="Cubilia erat dolor fames" ProgramPath="Himenaeos vel"/>
+		<UserControls:RemoteSoftware Column="42" Default="True" Index="62" Isremove="False" Name="Est nulla adipiscing parturient" Options="Dapibus eros aptent habitant" ProgramPath="Nunc odio morbi"/>
+	</ViewModel:Remote2ViewModel.OBRemoteSoftwares>
+</ViewModel:Remote2ViewModel>

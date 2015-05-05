@@ -33,11 +33,7 @@ namespace HelpDesk.ViewModel
 
             Load();
         }
-
-        void timer_Tick(object sender, EventArgs e)
-        {
-            UsersRemoteSoftware.Add(new RemoteSoftware());
-        }
+       
 
         #region BaseViewModel Subscribe / Unsubscribe
         protected override void Subscribe()

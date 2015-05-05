@@ -1,0 +1,226 @@
+﻿<UserControl x:Class="HelpDesk.UserControls.MainWindowComputer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:AmmasoConverts="clr-namespace:AmmasoConverts;assembly=AmmasoConverts"
+             xmlns:local="clr-namespace:WPFAutoCompleteTextbox"
+             xmlns:my="clr-namespace:HelpDesk.Commands"
+             xmlns:ViewModel="clr-namespace:HelpDesk.ViewModel"
+             xmlns:UserControls="clr-namespace:HelpDesk.UserControls"
+             xmlns:AmmasoWpfUsersControl="clr-namespace:AmmasoWPFUsersControls;assembly=AmmasoWPFUsersControls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="500">
+    <UserControl.Resources>
+        <AmmasoConverts:BoolToVisibility x:Key="BoolToVisibility" />
+        <AmmasoConverts:StringToEnable x:Key="StringToEnable" />
+        <AmmasoConverts:NullOrEmptyToVisibility x:Key="NullOrEmptyToVisibility" />
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <ViewModel:MainWindowComputerViewModel MessageBus="{StaticResource APPMessageBus}" />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding UserShouldEditValueNow}"
+                                 Value="True">
+                        <Setter Property="FocusManager.FocusedElement"
+                                Value="{Binding ElementName=txt_Computer}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
+        <StackPanel x:Name="ComputerOutline"
+                    Grid.Row="1">
+            <Grid Height="65"
+                  Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="61" />
+                    <ColumnDefinition Width="212*" />
+                    <ColumnDefinition Width="69*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Computer"
+                           Margin="0,8,0,5"
+                           HorizontalAlignment="Left"
+                           Width="60" />
+                <ComboBox x:Name="txt_Computer"
+                          Margin="4,3,3,3"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          ToolTip="Computer name autocomplete from ad"
+                          TabIndex="0"
+                          IsEditable="True"
+                          ItemsSource="{Binding Computers}"
+                          SelectedValue="{Binding SelectedComputer}"
+                          Text="{Binding SelectedComputer}" />
+                <!--TextBoxBase.TextChanged="txt_Computer_TextChanged"  -->
+                <!--DisplayMemberPath="Name"-->
+                <!--SelectedValuePath="Name"-->
+                <!--Visibility="{Binding Text, Converter={StaticResource NullOrEmptyToVisibility}, ElementName=txt_ComputerCount}"-->
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="2">
+                    <AmmasoWpfUsersControl:CircularProgressBar x:Name="ComputerCircularProgressBar"
+                                                               Height="10"
+                                                               Visibility="{Binding Text, Converter={StaticResource NullOrEmptyToVisibility}, ElementName=txt_ComputerCount}" />
+
+
+                    <TextBlock Text="{Binding TxtComputerCount}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="5"
+                               x:Name="txt_ComputerCount" />
+                    <CheckBox x:Name="Shutdown_Restart"
+                              Margin="5"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Width="19" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="3"
+                            Margin="0,5,0,5"
+                            IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txt_Computer}">
+                    <Button Content="RDP"
+                            Margin="5,0,0,0"
+                            Command="{Binding RDPCommand}" />
+                    <Button Content="C$"
+                            Margin="5,0,0,0"
+                            Command="{Binding CDriveCommand}" />
+                    <Button Content="Ping"
+                            Margin="5,0,0,0"
+                            Command="{Binding PingCommand}" />
+                    <Button Content="Manage"
+                            Margin="5,0,0,0"
+                            Command="{Binding ManageCommand}" />
+                </StackPanel>
+            </Grid>
+
+            <!--ComputerSoftware-->
+            <ListBox Margin="10,0,0,0"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     ItemsSource="{Binding AllComputerSoftware}"
+                     IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txt_Computer}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"
+                                   IsItemsHost="True"
+                                   Height="200" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+            </ListBox>
+
+            <!--StackPanelElse-->
+            <StackPanel x:Name="StackPanelElse"
+                        Margin="10,20,35,0"
+                        Orientation="Horizontal">
+
+                <!--AdminTools-->
+                <StackPanel x:Name="AdminTools"
+                            HorizontalAlignment="Right">
+                    <Button Height="28"
+                            x:Name="btn_DSA"
+                            Content="DSA"
+                            ToolTip="Active Directory"
+                            Command="{Binding ActiveDirectoryDSA}"
+                            Width="75"
+                            Margin="5" />
+                    <Button Height="28"
+                            x:Name="btn_GPM"
+                            Content="GPM"
+                            ToolTip="Group police management"
+                            Command="{Binding GroupPolicyManagement}"
+                            Width="75" />
+                </StackPanel>
+
+                <!--ShutRestart-->
+                <StackPanel x:Name="ShutRestart"
+                            HorizontalAlignment="Left"
+                            Width="96"
+                            IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txt_Computer}">
+                    <Button Height="28"
+                            x:Name="btn_ShutDown"
+                            Content="ShutDown"
+                            Command="{Binding Shutdown}"
+                            CommandParameter="{Binding Text, ElementName=txt_Computer}"
+                            Width="75"
+                            Margin="8.5,5,12.5,0"
+                            IsEnabled="{Binding IsChecked, ElementName=Shutdown_Restart}"
+                            Background="{DynamicResource shutdown_restart}"
+                            Foreground="Black"
+                            TabIndex="10"
+                            Style="{StaticResource AccentedSquareButtonStyle}" />
+                    <Button Height="28"
+                            x:Name="btn_Restart"
+                            Content="Restart"
+                            Command="{Binding Restart}"
+                            CommandParameter="{Binding Text, ElementName=txt_Computer}"
+                            Width="75"
+                            Margin="8.5,5,12.5,0"
+                            IsEnabled="{Binding IsChecked, ElementName=Shutdown_Restart}"
+                            Background="{DynamicResource shutdown_restart}"
+                            Foreground="Black"
+                            TabIndex="11"
+                            Style="{StaticResource AccentedSquareButtonStyle}" />
+                </StackPanel>
+
+                <!--Other-->
+                <StackPanel x:Name="Other">
+
+                    <!--PortNumber-->
+                    <StackPanel  Width="auto"
+                                 Margin="5"
+                                 Orientation="Horizontal"
+                                 IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txt_Computer}">
+
+                        <TextBox x:Name="txtPortNumber"
+                                 Width="50"
+                                 Margin="5,0,5,0"
+                                 Height="28"
+                                 VerticalAlignment="Top" />
+                        <Button Content="Open port"
+                                Height="28"
+                                VerticalAlignment="Top"
+                                x:Name="btnTelnet"
+                                Command="{Binding OpenPort}"
+                                CommandParameter="{Binding Text, ElementName=txtPortNumber}" />
+                    </StackPanel>
+                    <StackPanel  Width="auto"
+                                 Margin="5"
+                                 Orientation="Horizontal"
+                                 IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txt_Computer}">
+
+                        <TextBox x:Name="txtNetsend"
+                                 Width="50"
+                                 Margin="5,0,5,0"
+                                 Height="28"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" />
+                        <!--MouseDoubleClick="txtNetsend_MouseDoubleClick"-->
+                        <Button Content="Net Send"
+                                Height="28"
+                                VerticalAlignment="Top"
+                                x:Name="btnNetSend"
+                                IsEnabled="{Binding Text, Converter={StaticResource StringToEnable}, ElementName=txtNetsend}" />
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+            <TextBlock Text="{Binding SignalRRunning}" />
+        </StackPanel>
+
+    </Grid>
+</UserControl>

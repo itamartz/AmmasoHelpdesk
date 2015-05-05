@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="900"
-             Unloaded="UserControl_Unloaded">
+             Unloaded="UserControl_Unloaded" d:DataContext="{d:DesignData /SampleData/UsersViewViewModelSampleData.xaml}" >
     <UserControl.DataContext>
         <ViewModel:UsersViewViewModel />
     </UserControl.DataContext>
@@ -32,9 +32,9 @@
                  dd:DragDrop.IsDropTarget="True">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="5,5,0,5"
-                          Width="773.828"
-                          Height="80.92">
+                    <Grid
+                          Width="842"
+                          Height="105.92" HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="102" />
                             <ColumnDefinition />
@@ -105,21 +105,22 @@
                                     Height="20"
                                     Tag="{Binding}"
                                     Command="{Binding DataContext.Brows, ElementName=listBox}"
-                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" />
+                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{DynamicResource AccentedSquareButtonStyle}"/>
                             <Button x:Name="btnAdd"
                                     Content="+"
                                     Margin="0,0,5,0"
                                     Height="20"
                                     Tag="{Binding}"
                                     Command="{Binding DataContext.Add, ElementName=listBox}"
-                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Top" />
+                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Top" 
+									Style="{DynamicResource AccentedSquareButtonStyle}"/>
                             <Button x:Name="btnDelete"
                                     Content="-"
                                     Margin="0"
                                     Height="20"
                                     Tag="{Binding}"
                                     Command="{Binding DataContext.Delete, ElementName=listBox}"
-                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" />
+                                    CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{DynamicResource AccentedSquareButtonStyle}"/>
 
                         </StackPanel>
 

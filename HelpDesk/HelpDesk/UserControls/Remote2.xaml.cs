@@ -31,7 +31,7 @@ namespace HelpDesk.UserControls
         public Remote2()
         {
             InitializeComponent();
-            GetRemoteSoftware();
+            //GetRemoteSoftware();
         }
 
         private async void GetRemoteSoftware()
@@ -56,16 +56,7 @@ namespace HelpDesk.UserControls
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Controls.Button b = (sender as System.Windows.Controls.Button);
-            if (obRemoteSoftware.Count - 1 != 0)
-            {
-                //int index = Convert.ToInt32(b.Tag);
-                RemoteSoftware sof = (b.Tag as RemoteSoftware);
-                //RemoteSoftware sof = obRemoteSoftware[index];
-                sof.Isremove = true;
-                obRemoteSoftware.Remove(sof);
-
-            }
+            
             //SetIndex();
         }
         private void SetIndex()
@@ -117,6 +108,7 @@ namespace HelpDesk.UserControls
                 }
             }
         }
+       
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             SaveAllRemoteSoftware();
@@ -153,7 +145,7 @@ namespace HelpDesk.UserControls
                 Properties.Settings.Default.Save();
                 if (ConfigurationFileLocation != null)
                     ConfigurationFileLocation(true);
-                GetRemoteSoftware();
+                //GetRemoteSoftware();
             }
         }
 
