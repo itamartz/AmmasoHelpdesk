@@ -109,19 +109,19 @@ namespace HelpDesk.UserControls
             }
         }
        
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            SaveAllRemoteSoftware();
-            if (NewRemoteSoftware != null)
-                NewRemoteSoftware(true);
-            obRemoteSoftware.Clear();
-            obRemoteSoftware = null;
-        }
+        //private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        //{
+        //    SaveAllRemoteSoftware();
+        //    if (NewRemoteSoftware != null)
+        //        NewRemoteSoftware(true);
+        //    obRemoteSoftware.Clear();
+        //    obRemoteSoftware = null;
+        //}
 
-        private void SaveAllRemoteSoftware()
-        {
-            xml.Save(obRemoteSoftware);
-        }
+        //private void SaveAllRemoteSoftware()
+        //{
+        //    xml.Save(obRemoteSoftware);
+        //}
 
         private void RadioDefault_Checked(object sender, RoutedEventArgs e)
         {

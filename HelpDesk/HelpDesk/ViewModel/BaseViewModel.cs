@@ -28,6 +28,7 @@ namespace HelpDesk.ViewModel
             
         }
 
+
         #region MessageBus
         private ImessageBus _messageBus;
         public ImessageBus MessageBus

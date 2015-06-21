@@ -13,9 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Converts", "..\Converts\Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmmasoWPFUsersControls", "..\AmmasoWPFUsersControls\AmmasoWPFUsersControls\AmmasoWPFUsersControls.csproj", "{F99A8D7E-ADCC-4013-9CD3-0775A2CA5767}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ammasohelpdesk", "Ammasohelpdesk\Ammasohelpdesk.csproj", "{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs16
 		SccLocalPath0 = .
@@ -34,6 +36,9 @@ Global
 		SccProjectUniqueName5 = HelpDeskUnitTest\\HelpDeskUnitTest.csproj
 		SccProjectName5 = HelpDeskUnitTest
 		SccLocalPath5 = HelpDeskUnitTest
+		SccProjectUniqueName6 = Ammasohelpdesk\\Ammasohelpdesk.csproj
+		SccProjectName6 = Ammasohelpdesk
+		SccLocalPath6 = Ammasohelpdesk
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +79,12 @@ Global
 		{F99A8D7E-ADCC-4013-9CD3-0775A2CA5767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F99A8D7E-ADCC-4013-9CD3-0775A2CA5767}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F99A8D7E-ADCC-4013-9CD3-0775A2CA5767}.Release|x86.ActiveCfg = Release|Any CPU
+		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
