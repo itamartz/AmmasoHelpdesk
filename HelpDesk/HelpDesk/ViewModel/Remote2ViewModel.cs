@@ -51,6 +51,10 @@ namespace HelpDesk.ViewModel
             UnloadedCommand = new RelayCommand<object>(DoUnloadedCommand, CanUnloadedCommand);
             AddButtonCommand = new RelayCommand<object>(DoAddButtonCommand, CanAddButtonCommand);
             RmoveButtonCommand = new RelayCommand<object>(DoRmoveButtonCommand, CanRmoveButtonCommand);
+            DefaultRadioButtonCommand = new RelayCommand<object>(DoDefaultRadioButtonCommand, CanDefaultRadioButtonCommand);
+            SoftwareBrowseButtonCommand = new RelayCommand<object>(DoSoftwareBrowseButtonCommand, CanSoftwareBrowseButtonCommand);
+            ConfigurationPathBrowseButtonCommand = new RelayCommand<object>(DoConfigurationPathBrowseButtonCommand, CanConfigurationPathBrowseButtonCommand);
+
         }
 
         #region Binding
@@ -147,6 +151,53 @@ namespace HelpDesk.ViewModel
                     obRemoteSoftware.Remove(software);
                 }
             }
+        }
+        #endregion
+
+        #region DefaultRadioButton
+        public ICommand DefaultRadioButtonCommand { get; set; }
+
+        private bool CanDefaultRadioButtonCommand(object obj)
+        {
+            return true;
+        }
+
+        private void DoDefaultRadioButtonCommand(object obj)
+        {
+            RemoteSoftware software = obj as RemoteSoftware;
+
+            if (software != null)
+            {
+                software.Default = true;
+            }
+        }
+        #endregion
+
+        #region SoftwareBrowseButton
+        public ICommand SoftwareBrowseButtonCommand { get; set; }
+
+        private bool CanSoftwareBrowseButtonCommand(object obj)
+        {
+            return true;
+        }
+
+        private void DoSoftwareBrowseButtonCommand(object obj)
+        {
+
+        }
+        #endregion
+
+        #region ConfigurationPathBrowseButton
+        public ICommand ConfigurationPathBrowseButtonCommand { get; set; }
+
+        private bool CanConfigurationPathBrowseButtonCommand(object obj)
+        {
+            return true;
+        }
+
+        private void DoConfigurationPathBrowseButtonCommand(object obj)
+        {
+            
         }
         #endregion
 
