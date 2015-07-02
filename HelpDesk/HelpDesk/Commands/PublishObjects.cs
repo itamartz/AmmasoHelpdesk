@@ -14,6 +14,10 @@ namespace HelpDesk.Commands
     {
 
     }
+    public class DDrive
+    {
+
+    }
     public class RDPProgram
     {
 

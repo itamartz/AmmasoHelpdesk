@@ -15,9 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmmasoWPFUsersControls", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ammasohelpdesk", "Ammasohelpdesk\Ammasohelpdesk.csproj", "{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ammasohelpdesk.Infrastructure", "Ammasohelpdesk.Infrastructure\Ammasohelpdesk.Infrastructure.csproj", "{A22D9694-4C5E-469B-90ED-25F7FD55675D}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 8
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs16
 		SccLocalPath0 = .
@@ -39,6 +41,9 @@ Global
 		SccProjectUniqueName6 = Ammasohelpdesk\\Ammasohelpdesk.csproj
 		SccProjectName6 = Ammasohelpdesk
 		SccLocalPath6 = Ammasohelpdesk
+		SccProjectUniqueName7 = Ammasohelpdesk.Infrastructure\\Ammasohelpdesk.Infrastructure.csproj
+		SccProjectName7 = Ammasohelpdesk.Infrastructure
+		SccLocalPath7 = Ammasohelpdesk.Infrastructure
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +90,12 @@ Global
 		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EA10A48-4EB0-4B49-A3A5-F3F35BB16502}.Release|x86.ActiveCfg = Release|Any CPU
+		{A22D9694-4C5E-469B-90ED-25F7FD55675D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22D9694-4C5E-469B-90ED-25F7FD55675D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22D9694-4C5E-469B-90ED-25F7FD55675D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A22D9694-4C5E-469B-90ED-25F7FD55675D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22D9694-4C5E-469B-90ED-25F7FD55675D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A22D9694-4C5E-469B-90ED-25F7FD55675D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
