@@ -79,6 +79,14 @@ namespace HelpDesk
             StartProcess(proc, all);
 
         }
+        internal void ComputerDDrive(string ComputerName)
+        {
+            //C:\Windows\System32\PING.EXE
+            string proc = "explorer.exe";
+            string all = string.Format(@"\\{0}\D$", ComputerName);
+            StartProcess(proc, all);
+
+        }
         internal void ComputerPing(string ComputerName)
         {
             //C:\Windows\System32\PING.EXE

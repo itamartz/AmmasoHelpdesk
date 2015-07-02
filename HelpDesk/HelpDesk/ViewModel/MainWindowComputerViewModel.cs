@@ -49,6 +49,7 @@ namespace HelpDesk.ViewModel
         {
             RDPCommand = new RelayCommand<object>(DoRDPCommand, CanRDPCommand);
             CDriveCommand = new RelayCommand<object>(DoCDriveCommand, CanCDriveCommand);
+            DDriveCommand = new RelayCommand<object>(DoDDriveCommand, CanDDriveCommand);
             PingCommand = new RelayCommand<object>(DoPingCommand, CanPingCommand);
             ManageCommand = new RelayCommand<object>(DoManageCommand, CanManageCommand);
 
@@ -165,6 +166,11 @@ namespace HelpDesk.ViewModel
             {
                 if (!string.IsNullOrEmpty(_selectedComputer))
                     _ComputerCommandsviewModel.ComputerCDrive(_selectedComputer);
+            });
+            MessageBus.Subscribe<DDrive>((obj) =>
+            {
+                if (!string.IsNullOrEmpty(_selectedComputer))
+                    _ComputerCommandsviewModel.ComputerDDrive(_selectedComputer);
             });
             MessageBus.Subscribe<PingProgram>((obj) =>
             {
@@ -289,6 +295,20 @@ namespace HelpDesk.ViewModel
         private void DoCDriveCommand(object obj)
         {
             MessageBus.Publish<CDrive>(new CDrive());
+        }
+        #endregion
+
+        #region D$
+        public ICommand DDriveCommand { get; set; }
+
+        private bool CanDDriveCommand(object obj)
+        {
+            return true;
+        }
+
+        private void DoDDriveCommand(object obj)
+        {
+            MessageBus.Publish<DDrive>(new DDrive());
         }
         #endregion
 
