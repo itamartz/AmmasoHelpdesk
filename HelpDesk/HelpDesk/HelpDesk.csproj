@@ -19,6 +19,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <ExpressionBlendVersion>12.0.41002.1</ExpressionBlendVersion>
     <PublishUrl>D:\PublishHelpdesk\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -37,12 +38,11 @@
     <SuiteName>Ammaso.biz</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>42</ApplicationRevision>
+    <ApplicationRevision>43</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <ExpressionBlendVersion>12.0.41002.1</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -112,11 +112,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DependencyInjection">
-      <HintPath>..\DependencyInjection.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\..\..\Dropbox\C# Code\WPF\HelpDesk\HelpDesk\bin\Debug\DependencyInjection.dll</HintPath>
     </Reference>
     <Reference Include="GongSolutions.Wpf.DragDrop">
-      <HintPath>C:\Users\itamartz\Desktop\Reorder_item_WPF\Reorder_item_WPF\bin\Debug\GongSolutions.Wpf.DragDrop.dll</HintPath>
+      <HintPath>..\..\..\..\..\Dropbox\C# Code\WPF\HelpDesk\HelpDesk\bin\Debug\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.1.1.2.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -155,7 +154,7 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="SnmpSharpNet">
-      <HintPath>..\..\..\..\Amm@so\GuardianAngel\GuardianAngel\SNMP\bin\Debug\SnmpSharpNet.dll</HintPath>
+      <HintPath>..\..\..\..\..\Dropbox\C# Code\WPF\HelpDesk\HelpDesk\bin\Debug\SnmpSharpNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -184,7 +183,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WpfControls">
-      <HintPath>..\WpfControls.Test\WpfControls.dll</HintPath>
+      <HintPath>..\..\..\..\..\Dropbox\C# Code\WPF\HelpDesk\HelpDesk\bin\Debug\WpfControls.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

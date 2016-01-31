@@ -68,7 +68,7 @@ namespace HelpDesk
             acr.Domain = Properties.Settings.Default.txt_Domain;
             acr.ComputerName = ComputerName;
 
-            
+
 
         }
         internal void ComputerCDrive(string ComputerName)
@@ -96,12 +96,24 @@ namespace HelpDesk
             StartProcess(proc, all);
 
         }
-        internal void ComputerManage(string _selectedComputer)
+        internal void ComputerManage(string ComputerName)
         {
-            string all = string.Format("compmgmt.msc /Computer={0}", _selectedComputer);
+            string all = string.Format("compmgmt.msc /Computer={0}", ComputerName);
             StartProcess(mmc, all);
 
         }
+        internal void ComputerShutdown(string ComputerName)
+        {
+            string all = string.Format(@"/s /m \\{0} /t 0 /f ", ComputerName);
+            StartProcess("shutdown.exe", all);
+
+        }
+        internal void ComputerRestart(string ComputerName)
+        {
+            string all = string.Format(@"/r /m \\{0} /t 0 /f ", ComputerName);
+            StartProcess("shutdown.exe", all);
+        }
+
         #region WOL
         internal async void ComputerWOL(string ComputerName)
         {
@@ -419,7 +431,7 @@ namespace HelpDesk
             AdminCredentialsAndRemoteSoftware acr = App.AdminCredentialsAndRemoteSoftware;
 
             acr.UserName = Properties.Settings.Default.txt_AdminUser;
-           // acr.SecureStringPassword = Utility.AdminPassword.ToSecure();
+            // acr.SecureStringPassword = Utility.AdminPassword.ToSecure();
             acr.Password = Utility.AdminPassword;
             acr.Arguments = Options;
             acr.FileName = sof.ProgramPath;
@@ -480,8 +492,6 @@ namespace HelpDesk
             }
         }
 
-
-        
     }
 
 
