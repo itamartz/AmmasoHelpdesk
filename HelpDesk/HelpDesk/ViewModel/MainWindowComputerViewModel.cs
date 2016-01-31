@@ -190,6 +190,17 @@ namespace HelpDesk.ViewModel
                     _ComputerCommandsviewModel.RunRemoteSoftware(rem, SelectedComputer);
                 }
             });
+
+            MessageBus.Subscribe<ComputerShutdown>((obj) =>
+            {
+                if (!string.IsNullOrEmpty(_selectedComputer))
+                    _ComputerCommandsviewModel.ComputerShutdown(_selectedComputer);
+            });
+            MessageBus.Subscribe<ComputerRestart>((obj) =>
+            {
+                if (!string.IsNullOrEmpty(_selectedComputer))
+                    _ComputerCommandsviewModel.ComputerRestart(_selectedComputer);
+            });
         }
         protected override void Unsubscribe()
         {
