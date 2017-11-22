@@ -20,4 +20,6 @@ Ctrl+/ - Open Configuration file path.
 Ctrl+0 Reset all.
 F5 - Refrash all.
 
-![Alt text](http://ammaso.biz/helpdesk/1.jpg "Screenshot")
+
+![Alt text](/1.jpg "Screenshot")
+
