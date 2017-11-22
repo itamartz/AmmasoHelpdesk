@@ -19,3 +19,5 @@ Ctrl+2 - Run Rdp to selected computer (if computer not selected it'sn run).
 Ctrl+/ - Open Configuration file path.
 Ctrl+0 Reset all.
 F5 - Refrash all.
+
+![Alt text](http://ammaso.biz/helpdesk/1.jpg "Screenshot")
